@@ -38,7 +38,7 @@ void inicializar(){
     archive.close();
 }
 
-void verificaCadastrados(int &QuantUsuariosIn,int &QuantUsuariosTotal){
+void verificaCadastrados(int &QuantUsuariosIn){
     struct User usu;
     fstream archive;
     archive.open(nameArchive,ios::in);
@@ -50,8 +50,6 @@ void verificaCadastrados(int &QuantUsuariosIn,int &QuantUsuariosTotal){
     while(archive &&!archive.eof()){
             if(usu.id!=0)
             QuantUsuariosIn++;
-            if(usu.id==0||usu.id!=0)  //problema na logica de contar todos...
-                QuantUsuariosTotal++;
         archive.read((char*)(&usu),sizeof(User));
 
     }
@@ -62,7 +60,7 @@ void verificaCadastrados(int &QuantUsuariosIn,int &QuantUsuariosTotal){
 void cadastrar(){
     struct User newUser;
     int QuantTotal=0,quantIn=0;
-    verificaCadastrados(quantIn,QuantTotal);
+    verificaCadastrados(quantIn);
     fstream archive;
     archive.open(nameArchive,ios::out|ios::in|ios::ate);
 
@@ -74,7 +72,7 @@ void cadastrar(){
         cin.ignore();
         cout <<"Digite que tipo de conta o usuario esta criando P(professor) <-> A(Aluno)"<<endl;
         cin  >> newUser.token;
-        newUser.id = (QuantTotal+quantIn)-(QuantTotal)+1; //logica para por o proximo id ...
+        newUser.id = (quantIn)+1; //logica para por o proximo id ...
 
 
 
@@ -82,7 +80,7 @@ void cadastrar(){
         archive.write((const char*)(&newUser),sizeof(User));
 
         archive.close();
-
+    system("cls");
 }
 void visualizaTeste(){
     struct User usu;
@@ -94,8 +92,8 @@ void visualizaTeste(){
     }
     archive.read((char*)(&usu),sizeof(User));
     while(archive &&!archive.eof()){
-            //if(usu.id != 0)
-            cout <<usu.id <<"\n"<<usu.login<<"\n"<<usu.senha<<endl;
+            if(usu.id != 0)
+            cout <<"\n"<<usu.id <<"\n"<<usu.login<<"\n"<<usu.senha<<endl;
 
         archive.read((char*)(&usu),sizeof(User));
 
