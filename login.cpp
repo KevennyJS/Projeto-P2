@@ -48,11 +48,15 @@ void verificaCadastrados(int &QuantUsuariosIn,int &QuantUsuariosTotal){
     }
     archive.read((char*)(&usu),sizeof(User));
     while(archive &&!archive.eof()){
-            if(usu.login != "")     //tem algum problema ... <<<<<
+            if(usu.id!=0)
             QuantUsuariosIn++;
+            if(usu.id==0||usu.id!=0)  //problema na logica de contar todos...
+                QuantUsuariosTotal++;
         archive.read((char*)(&usu),sizeof(User));
-        QuantUsuariosTotal++;
+
     }
+
+    //cout <<"quant in "<<QuantUsuariosIn<<"quanttota"<<QuantUsuariosTotal<<endl;  //<- so para teste msm
     archive.close();
 }
 void cadastrar(){
@@ -70,11 +74,11 @@ void cadastrar(){
         cin.ignore();
         cout <<"Digite que tipo de conta o usuario esta criando P(professor) <-> A(Aluno)"<<endl;
         cin  >> newUser.token;
-        newUser.id = (QuantTotal-quantIn); //logica para por o proximo id ...
+        newUser.id = (QuantTotal+quantIn)-(QuantTotal)+1; //logica para por o proximo id ...
 
-        cout <<"\t"<<newUser.id<<endl;
 
-        archive.seekp((newUser.id)*sizeof(User));
+
+        archive.seekp((newUser.id-1)*sizeof(User));
         archive.write((const char*)(&newUser),sizeof(User));
 
         archive.close();
@@ -90,7 +94,7 @@ void visualizaTeste(){
     }
     archive.read((char*)(&usu),sizeof(User));
     while(archive &&!archive.eof()){
-            if(usu.id != 0)
+            //if(usu.id != 0)
             cout <<usu.id <<"\n"<<usu.login<<"\n"<<usu.senha<<endl;
 
         archive.read((char*)(&usu),sizeof(User));
