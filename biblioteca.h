@@ -148,14 +148,14 @@ void visualizaTeste(){
     archive.close();
 }
 
-char criar_materia(){
+void criar_materia(){
     fflush(stdin);
-    char nome[20];
-    char nome_forReturn[20];
+    char nome[30]=".\\Materias\\";
+    char adicao[30];
 
     cout << "Nome Da Materia: ";
-    gets(nome);
-    nome_forReturn[20]=nome[20];
+    gets(adicao);
+    strcat(nome,adicao);
     strcat(nome,".txt");
     fopen(nome, "w");
 }

@@ -12,7 +12,7 @@ int main(){
         cout << "2-Cadastrar" << endl;
         cout << "3-visualizar cadastrados" << endl;
         cout << "4-Login" << endl;
-        cout << "5-criar materia";
+        cout << "5-criar materia" << endl;
         cout << "Opcao: ";
         cin >> opcao;
 
