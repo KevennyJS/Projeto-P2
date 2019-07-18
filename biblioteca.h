@@ -157,7 +157,11 @@ void criar_materia(){
     gets(adicao);
     strcat(nome,adicao);
     strcat(nome,".txt");
-    fopen(nome, "w");
+    ofstream arquivo(nome, ios::out);
+    arquivo.close();
+    limpar_tela;
+    cout << "Materia Criada Com Sucesso!!!" << endl;
+    Sleep(2000);
 }
 
 #endif // BIBLIOTECA_H_INCLUDED
