@@ -13,15 +13,30 @@ using namespace std;
 
 using namespace std;
 char* nameArchive ="Bd.txt";
-struct User{
+struct User
+{
     int id;
     char login[15];
     char senha[15];
     char nome[15];
     char token;
 };
+struct aluno // vai ser colocado dentro dos arquivos das TURMAS
+{
+    int id_disciplina;
+    int id_usuario;
+    int nota_alunos[3];
+} ;
+struct disciplina //REFERENTE AS DISCPLINAS!
+{
+    int id_disciplina;
+    char nome_disciplina[15];
+    int id_prof;
 
-int login(){
+};
+
+int login()
+{
     int verifica=0;
     char login[15], senha[15];
     char professor='p';
@@ -37,59 +52,71 @@ int login(){
     cout << "SENHA: ";
     cin >> senha;
 
-    while(leitura && !leitura.eof()){
-        if(usuario.id != 0){
-            if(strcmp(usuario.login,login)==0 && strcmp(usuario.senha,senha)==0){
-                    if(usuario.token == 'P' || usuario.token == 'p'){
-                        leitura.close();
-                        return 1;
-                        // para facilitar, podem chamar a função para os professores aqui e remover o return;
-                    }
-                    else{
-                        leitura.close();
-                        return 0;
-                        // para facilitar, podem chamar a função para os alunos aqui
-                    }
-                    cout << "achou senha";
-                    verifica=1;
-                    getch();
-                    break;
+    while(leitura && !leitura.eof())
+    {
+        if(usuario.id != 0)
+        {
+            if(strcmp(usuario.login,login)==0 && strcmp(usuario.senha,senha)==0)
+            {
+                if(usuario.token == 'P' || usuario.token == 'p')
+                {
+                    leitura.close();
+                    return 1;
+                    // para facilitar, podem chamar a função para os professores aqui e remover o return;
+                }
+                else
+                {
+                    leitura.close();
+                    return 0;
+                    // para facilitar, podem chamar a função para os alunos aqui
+                }
+                cout << "achou senha";
+                verifica=1;
+                getch();
+                break;
             }
         }
         leitura.read((char*)(&usuario),sizeof(User));
 
     }
     leitura.close();
-    if(verifica==0) cout <<"Usuario Ou Senha Incorreto";
+    if(verifica==0)
+        cout <<"Usuario Ou Senha Incorreto";
     Sleep(2000);
 }
 
-void inicializar(){
-    struct User vazio ={0,"","","",' '};
+void inicializar()
+{
+    struct User vazio = {0,"","","",' '};
     ofstream archive;
     archive.open(nameArchive,ios::out);
 
-    if(archive.fail()){
+    if(archive.fail())
+    {
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
 
-    for(int i=0;i<100;i++){
+    for(int i=0; i<100; i++)
+    {
         archive.write((const char*)(&vazio),sizeof(User));
     }
     archive.close();
 }
 
-void verificaCadastrados(int &QuantUsuariosIn){
+void verificaCadastrados(int &QuantUsuariosIn)
+{
     struct User usu;
     fstream archive;
     archive.open(nameArchive,ios::in);
 
-    if(archive.fail()){
+    if(archive.fail())
+    {
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
     archive.read((char*)(&usu),sizeof(User));
-    while(archive &&!archive.eof()){
-            if(usu.id!=0)
+    while(archive &&!archive.eof())
+    {
+        if(usu.id!=0)
             QuantUsuariosIn++;
         archive.read((char*)(&usu),sizeof(User));
 
@@ -99,7 +126,8 @@ void verificaCadastrados(int &QuantUsuariosIn){
     archive.close();
 }
 
-void cadastrar(){
+void cadastrar()
+{
     struct User newUser;
     int QuantTotal=0,quantIn=0;
     verificaCadastrados(quantIn);
@@ -109,37 +137,40 @@ void cadastrar(){
     if(archive.fail())
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
 
-        cout <<"Digite o login: ";
-        cin  >>newUser.login;
-        cout << "Digite a Senha: ";
-        cin  >>newUser.senha;
-        cout << "Digite Seu Nome: ";
-        cin  >>newUser.nome;
-        cin.ignore();
-        cout <<"Digite que tipo de conta o usuario esta criando P(professor) <-> A(Aluno)"<<endl;
-        cin  >> newUser.token;
-        newUser.id = (quantIn)+1; //logica para por o proximo id ...
+    cout <<"Digite o login: ";
+    cin  >>newUser.login;
+    cout << "Digite a Senha: ";
+    cin  >>newUser.senha;
+    cout << "Digite Seu Nome: ";
+    cin  >>newUser.nome;
+    cin.ignore();
+    cout <<"Digite que tipo de conta o usuario esta criando P(professor) <-> A(Aluno)"<<endl;
+    cin  >> newUser.token;
+    newUser.id = (quantIn)+1; //logica para por o proximo id ...
 
 
 
-        archive.seekp((newUser.id-1)*sizeof(User));
-        archive.write((const char*)(&newUser),sizeof(User));
+    archive.seekp((newUser.id-1)*sizeof(User));
+    archive.write((const char*)(&newUser),sizeof(User));
 
-        archive.close();
+    archive.close();
     system("CLS");
 }
 
-void visualizaTeste(){
+void visualizaTeste()
+{
     struct User usu;
     fstream archive;
     archive.open(nameArchive,ios::in);
 
-    if(archive.fail()){
+    if(archive.fail())
+    {
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
     archive.read((char*)(&usu),sizeof(User));
-    while(archive &&!archive.eof()){
-            if(usu.id != 0)
+    while(archive &&!archive.eof())
+    {
+        if(usu.id != 0)
             cout <<"\n"<<usu.id <<"\n"<<usu.login<<"\n"<<usu.senha<<endl;
 
         archive.read((char*)(&usu),sizeof(User));
@@ -148,7 +179,8 @@ void visualizaTeste(){
     archive.close();
 }
 
-void criar_materia(){
+void criar_materia()
+{
     fflush(stdin);
     char nome[30]=".\\Materias\\";
     char adicao[30];
@@ -163,5 +195,106 @@ void criar_materia(){
     cout << "Materia Criada Com Sucesso!!!" << endl;
     Sleep(2000);
 }
+
+void criarTurma()  // keveny implemente aquele seu algoritmo de criar arquivos com nomes aqui porfavor!
+{
+    fstream archive;
+    archive.open(name,ios::out);
+    aluno alunovazio = {0,0,0};
+    if(archive.fail())
+        cout << "ALGUM PROBLEMA COM SEU ARQUIVO!!!"<<endl;
+
+    for(int i=0; i<50; i++)
+    {
+        archive.write((const char*)(&alunovazio),sizeof(aluno));
+    }
+    archive.close();
+
+}
+
+//no caso disciplina e diferente de turma . as turmas vao ser varios arquivos , as disciplinas vao ficar em um unico arquivo
+//assim as turma puxa informaçoes da disciplinas
+void criarArquivoDiciplina()
+{
+    fstream archive;
+    archive.open("Disciplinas.txt",ios::out);
+    disciplina disciplinasVazias = {0,"",0};
+    if(archive.fail())
+        cout << "ALGUM PROBLEMA COM SEU ARQUIVO!!!"<<endl;
+
+    for(int i=0; i<50; i++)
+    {
+        archive.write((const char*)(&disciplinasVazias),sizeof(disciplina));
+    }
+    archive.close();
+
+}
+void inserirDiciplina()
+{
+    fstream archive;
+    archive.open("Disciplinas.txt",ios::out|ios::in|ios::ate);
+    disciplina discipli;
+    int countDisciplina;
+    verificaDisciplinas(countDisciplina);
+
+    if(archive.fail())
+        cout<<"ALGUM PROBLEMA NO ARQUIVO FECHE E FALE COM A MANUTENÇÃO"<<endl;
+
+    cout <<setw(10)<<"Nome da disciplina:"<<endl;
+    cin >>discipli.nome_disciplina;
+    cout <<setw(10)<<"ID do Prof Referente:"<<endl;
+    cin >>discipli.id_prof;
+    discipli.id_disciplina = countDisciplina+1;
+
+    archive.seekp((discipli.id_disciplina-1)*sizeof(disciplina));
+    archive.write((const char*)(&discipli),sizeof(disciplina));
+
+    archive.close();
+
+}
+void verificaDisciplinas(int &QuantUsuariosIn)
+{
+    struct disciplina usu;
+    fstream archive;
+    archive.open("Disciplinas.txt",ios::in);
+
+    if(archive.fail())
+    {
+        cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
+    }
+    archive.read((char*)(&usu),sizeof(disciplina));
+    while(archive &&!archive.eof())
+    {
+        if(usu.id_disciplina!=0)
+            QuantUsuariosIn++;
+        archive.read((char*)(&usu),sizeof(disciplina));
+
+    }
+
+    archive.close();
+}
+void listarDisciplinas()
+{
+    struct disciplina listDisciplin;
+    fstream archive;
+    archive.open("Disciplinas.txt",ios::in);
+
+    if(archive.fail())
+    {
+        cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
+    }
+    archive.read((char*)(&listDisciplin),sizeof(disciplina));
+    while(archive &&!archive.eof())
+    {
+        if(listDisciplin.id_disciplina != 0)
+            cout <<"\n"<<"Disciplina: "<<listDisciplin.nome_disciplina <<"\n"<<"ID_Disciplina:"<<listDisciplin.id_disciplina<<"\n"<<"Id_Prof:"<<listDisciplin.id_prof<<endl;
+
+        archive.read((char*)(&listDisciplin),sizeof(disciplina));
+
+    }
+    archive.close();
+
+}
+
 
 #endif // BIBLIOTECA_H_INCLUDED
