@@ -214,6 +214,7 @@ void criarTurma()  // keveny implemente aquele seu algoritmo de criar arquivos c
 
 //no caso disciplina e diferente de turma . as turmas vao ser varios arquivos , as disciplinas vao ficar em um unico arquivo
 //assim as turma puxa informaçoes da disciplinas
+namespace disciplinaFunctions{
 void criarArquivoDiciplina()
 {
     fstream archive;
@@ -293,6 +294,9 @@ void listarDisciplinas()
 
     }
     archive.close();
+
+}
+
 
 }
 
