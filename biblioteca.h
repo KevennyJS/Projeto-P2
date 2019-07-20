@@ -21,19 +21,13 @@ struct User
     char nome[15];
     char token;
 };
-struct aluno // vai ser colocado dentro dos arquivos das TURMAS
+struct aluno // arquivos das TURMAS
 {
     int id_disciplina;
     int id_usuario;
     int nota_alunos[3];
 } ;
-struct disciplina //REFERENTE AS DISCPLINAS!
-{
-    int id_disciplina;
-    char nome_disciplina[15];
-    int id_prof;
 
-};
 
 int login()
 {
@@ -103,7 +97,7 @@ void inicializar()
     archive.close();
 }
 
-void verificaCadastrados(int &QuantUsuariosIn)
+void verificaCadastrados(int &QuantUsuariosIn) // id automatico vericaçao de quanto usuarios ja estao cadastrados
 {
     struct User usu;
     fstream archive;
@@ -121,8 +115,6 @@ void verificaCadastrados(int &QuantUsuariosIn)
         archive.read((char*)(&usu),sizeof(User));
 
     }
-
-    //cout <<"quant in "<<QuantUsuariosIn<<"quanttota"<<QuantUsuariosTotal<<endl;  //<- so para teste msm
     archive.close();
 }
 
@@ -196,105 +188,7 @@ void criar_materia()
     Sleep(2000);
 }
 
-void criarTurma()  // keveny implemente aquele seu algoritmo de criar arquivos com nomes aqui porfavor!
-{
-    fstream archive;
-    archive.open(name,ios::out);
-    aluno alunovazio = {0,0,0};
-    if(archive.fail())
-        cout << "ALGUM PROBLEMA COM SEU ARQUIVO!!!"<<endl;
 
-    for(int i=0; i<50; i++)
-    {
-        archive.write((const char*)(&alunovazio),sizeof(aluno));
-    }
-    archive.close();
-
-}
-
-//no caso disciplina e diferente de turma . as turmas vao ser varios arquivos , as disciplinas vao ficar em um unico arquivo
-//assim as turma puxa informaçoes da disciplinas
-void criarArquivoDiciplina()
-{
-    fstream archive;
-    archive.open("Disciplinas.txt",ios::out);
-    disciplina disciplinasVazias = {0,"",0};
-    if(archive.fail())
-        cout << "ALGUM PROBLEMA COM SEU ARQUIVO!!!"<<endl;
-
-    for(int i=0; i<50; i++)
-    {
-        archive.write((const char*)(&disciplinasVazias),sizeof(disciplina));
-    }
-    archive.close();
-
-}
-void inserirDiciplina()
-{
-    fstream archive;
-    archive.open("Disciplinas.txt",ios::out|ios::in|ios::ate);
-    disciplina discipli;
-    int countDisciplina;
-    verificaDisciplinas(countDisciplina);
-
-    if(archive.fail())
-        cout<<"ALGUM PROBLEMA NO ARQUIVO FECHE E FALE COM A MANUTENÇÃO"<<endl;
-
-    cout <<setw(10)<<"Nome da disciplina:"<<endl;
-    cin >>discipli.nome_disciplina;
-    cout <<setw(10)<<"ID do Prof Referente:"<<endl;
-    cin >>discipli.id_prof;
-    discipli.id_disciplina = countDisciplina+1;
-
-    archive.seekp((discipli.id_disciplina-1)*sizeof(disciplina));
-    archive.write((const char*)(&discipli),sizeof(disciplina));
-
-    archive.close();
-
-}
-void verificaDisciplinas(int &QuantUsuariosIn)
-{
-    struct disciplina usu;
-    fstream archive;
-    archive.open("Disciplinas.txt",ios::in);
-
-    if(archive.fail())
-    {
-        cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
-    }
-    archive.read((char*)(&usu),sizeof(disciplina));
-    while(archive &&!archive.eof())
-    {
-        if(usu.id_disciplina!=0)
-            QuantUsuariosIn++;
-        archive.read((char*)(&usu),sizeof(disciplina));
-
-    }
-
-    archive.close();
-}
-void listarDisciplinas()
-{
-    struct disciplina listDisciplin;
-    fstream archive;
-    archive.open("Disciplinas.txt",ios::in);
-
-    if(archive.fail())
-    {
-        cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
-    }
-    archive.read((char*)(&listDisciplin),sizeof(disciplina));
-    while(archive &&!archive.eof())
-    {
-        if(listDisciplin.id_disciplina != 0)
-            cout <<"\n"<<"Disciplina: "<<listDisciplin.nome_disciplina <<"\n"<<"ID_Disciplina:"<<listDisciplin.id_disciplina<<"\n"<<"Id_Prof:"<<listDisciplin.id_prof<<endl;
-
-        archive.read((char*)(&listDisciplin),sizeof(disciplina));
-
-    }
-    archive.close();
-
-}
 
 
 #endif // BIBLIOTECA_H_INCLUDED
