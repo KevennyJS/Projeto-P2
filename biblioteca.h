@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 
 using namespace std;
 #define limpar_tela system("CLS");
@@ -25,10 +26,12 @@ struct aluno // arquivos das TURMAS
 {
     int id_disciplina;
     int id_usuario;
-    int nota_alunos[3];
+    int nota_alunos1;//distribui as 3 notas pra ficar mais facil o acesso para media, e para exibição das notas, e para o cadastro na materia
+    int nota_alunos2;
+    int nota_alunos3;
 } ;
 
-int login()
+void login(int &ID_ativo)
 {
     int verifica=0;
     char login[15], senha[15];
@@ -53,14 +56,18 @@ int login()
             {
                 if(usuario.token == 'P' || usuario.token == 'p')
                 {
+                    ID_ativo=usuario.id;
+                    limpar_tela;
+                    cout << setw(15) << "Bem Vindo " << usuario.nome << endl;
                     leitura.close();
-                    return 1;
-                    // para facilitar, podem chamar a função para os professores aqui e remover o return;
+                    Sleep(2000);
+                    // para facilitar, podem chamar a função para os professores aqui ;
                 }
                 else
                 {
+                    cout << setw(15) << "Bem Vindo " << usuario.nome << endl;
                     leitura.close();
-                    return 0;
+                    Sleep(2000);
                     // para facilitar, podem chamar a função para os alunos aqui
                 }
                 cout << "achou senha";
@@ -170,7 +177,7 @@ void visualizaTeste()
     archive.close();
 }
 
-void criar_materia()
+void criar_materia(int &ID_ativo)
 {
     fflush(stdin);
     char nome[30]=".\\Materias\\";
@@ -180,7 +187,18 @@ void criar_materia()
     gets(adicao);
     strcat(nome,adicao);
     strcat(nome,".txt");
+
     ofstream arquivo(nome, ios::out);
+
+    User prof = {ID_ativo, 0, 0, 0, 0};
+    arquivo.write((const char *)(&prof),sizeof(User));
+
+    User UVazio = {0, 0, 0 , 0, 0};
+
+    for(int i = 0; i < 50; i++){
+        arquivo.write((const char *)(&UVazio),sizeof(User));
+    }
+
     arquivo.close();
     limpar_tela;
     cout << "Materia Criada Com Sucesso!!!" << endl;

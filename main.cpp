@@ -4,7 +4,8 @@
 using namespace std;
 
 int main(){
-    int Tipo_user,opcao;
+    int opcao;
+    int ID_ativo;
 
     while (opcao !=0 ){
         cout << "==========================" << endl << "Essa home e so para testes" << endl <<  "==========================" << endl;
@@ -35,10 +36,10 @@ int main(){
                 getch();
                 break;
             case 4:
-                Tipo_user=login();
+                login(ID_ativo);
                 break;
             case 5:
-                criar_materia();
+                criar_materia(ID_ativo);
                 break;
         }
         limpar_tela;
