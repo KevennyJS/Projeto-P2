@@ -28,7 +28,6 @@ struct aluno // arquivos das TURMAS
     int nota_alunos[3];
 } ;
 
-
 int login()
 {
     int verifica=0;
