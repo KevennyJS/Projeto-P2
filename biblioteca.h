@@ -70,7 +70,6 @@ void login(int &ID_ativo)
                     Sleep(2000);
                     // para facilitar, podem chamar a função para os alunos aqui
                 }
-                cout << "achou senha";
                 verifica=1;
                 getch();
                 break;
