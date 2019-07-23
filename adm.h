@@ -51,7 +51,7 @@ void home_adm(){
             case 1:
                 inicializar();
                 limpar_tela;
-                cout << "Criando Arquivo...";
+                cout << "Zerando...";
                 Sleep(2000);
                 break;
             case 2:
@@ -75,7 +75,7 @@ void home_adm(){
 }
 
 void inicializar(){
-    struct User adm = {1, "admin", "admin", "Admin", 'A'};
+    struct User adm = {1, "admin", "admin", "Admin", 'M'};
     struct User vazio = {0,"","","",' '};
     ofstream archive;
     archive.open(nameArchive,ios::out);
@@ -144,24 +144,37 @@ void cadastrar()
     system("CLS");
 }
 
-void visualizaTeste()
-{
+void visualizaTeste(){
     struct User usu;
     fstream archive;
     archive.open(nameArchive,ios::in);
 
-    if(archive.fail())
-    {
+    if(archive.fail()){
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
+
+    cout << "==================================================" << endl;
+    cout << "===============Lista De Cadastrados===============" << endl;
+    cout << "==================================================" << endl;
+
+    cout << setiosflags(ios::left)
+        << setw(16) << "Nome" << setw(2) << "|"
+        <<setw(16) << "Login" << setw(2) << "|"
+        << setw(7) << "Senha" << setw(2) << "|"
+        <<setw(3) << "Tipo" << endl;
+
     archive.read((char*)(&usu),sizeof(User));
-    while(archive &&!archive.eof())
-    {
-        if(usu.id != 0)
-            cout <<"\n"<<usu.id <<"\n"<<usu.login<<"\n"<<usu.senha<<endl;
+    while(archive &&! archive.eof()){
+        if(usu.id != 0){
+                cout << setiosflags(ios::left)
+                << setw(16) << usu.nome << setw(2) << "|"
+                << setw(16) << usu.login << setw(2) << "|"
+                <<setw(7) << "*****" << setw(2) << "|"
+                << setw(4) << setiosflags(ios::right) << usu.token << endl;
 
+        }
         archive.read((char*)(&usu),sizeof(User));
-
     }
+    cout << "==================================================" << endl;
     archive.close();
 }
