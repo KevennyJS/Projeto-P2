@@ -31,6 +31,7 @@ struct aluno // arquivos das TURMAS
 void visualizaTeste();
 void inicializar();
 void cadastrar();
+void atualizarInfo();
 
 void home_adm(){
     int opcao;
@@ -43,6 +44,7 @@ void home_adm(){
         cout << "1-Apagar Todos Os Usuarios" << endl;
         cout << "2-Cadastrar" << endl;
         cout << "3-Lista de Cadastrados" << endl;
+        cout << "4-Atualizar Cadastrados" << endl;
         cout << "0-Deslogar" << endl;
         cout << "Opcao: ";
         cin >> opcao;
@@ -66,6 +68,8 @@ void home_adm(){
                 getch();
                 break;
             case 4:
+                atualizarInfo();
+                getch();
                 break;
         }
         limpar_tela;
@@ -179,3 +183,48 @@ void visualizaTeste(){
     cout << "==================================================" << endl;
     archive.close();
 }
+void atualizarInfo(){
+    short int opcao;
+    fstream archive;
+    struct User usuario;
+    archive.open("Bd.txt",ios::out|ios::ate|ios::in);
+
+    if(archive.fail()){
+        cout <<"ALGUM PROBLEMA COM SEU ARQUIVO BD ,FECHE E TENTE NOVAMENTE!"<<endl;
+    }
+    cout<< "Informe o id referente a Atualização"<<endl;
+    cin >> usuario.id;
+
+    archive.seekg((usuario.id-1)*sizeof(User));
+    archive.read((char*)(&usuario),sizeof(User));
+
+    cout << "-- ATUALIZAR INFORMAÇÕES --"<<endl;
+    cout << "[1]- Login\n"
+         << "[2]- Senha\n"
+         << "[3]- Nome" <<endl;
+    cin >>opcao;
+
+    switch (opcao)
+    {
+    case 1:
+        cout<<"Novo Login"<<endl;
+        cin >>usuario.login;
+        break;
+    case 2:
+        cout<<"Novo Senha"<<endl;
+        cin >>usuario.senha;
+        break;
+    case 3:
+        cout<<"Novo Nome"<<endl;
+        cin >>usuario.nome;
+        break;
+    default:
+        cout <<"Opção não existe!!!"<<endl;
+    }
+
+    archive.seekp((usuario.id-1)*sizeof(User));
+    archive.write((const char*)(&usuario),sizeof(User));
+
+    archive.close();
+}
+
