@@ -9,7 +9,7 @@
 
 #define limpar_tela system("CLS");
 using namespace std;
-char* nameArchive ="Bd.txt";
+char* nameArchive =(char*)"Bd.txt";
 
 struct User
 {
@@ -113,9 +113,9 @@ void verificaCadastrados(int &QuantUsuariosIn) // id automatico vericaçao de qua
     archive.close();
 }
 
-void cadastrar()
-{
+void cadastrar(){
     struct User newUser;
+    char aux;
     int QuantTotal=0,quantIn=0;
     verificaCadastrados(quantIn);
     fstream archive;
@@ -131,11 +131,12 @@ void cadastrar()
     cout << "Digite Seu Nome: ";
     cin  >>newUser.nome;
     cin.ignore();
-    cout <<"Digite que tipo de conta o usuario esta criando P(professor) <-> A(Aluno)"<<endl;
-    cin  >> newUser.token;
+    again:
+    cout <<"Tipo de conta P(professor) <-> A(Aluno) <-> M(Administrador)"<<endl;
+    cin >> aux;
+    if (aux == 'P' || aux == 'A' || aux == 'M') newUser.token = aux;
+    else {cout << "Tipo de usuario Desconhecido, Tente novamente!" << endl;goto again;}
     newUser.id = (quantIn)+1; //logica para por o proximo id ...
-
-
 
     archive.seekp((newUser.id-1)*sizeof(User));
     archive.write((const char*)(&newUser),sizeof(User));
@@ -170,7 +171,7 @@ void visualizaTeste(){
                 << setw(16) << usu.nome << setw(2) << "|"
                 << setw(16) << usu.login << setw(2) << "|"
                 <<setw(7) << "*****" << setw(2) << "|"
-                << setw(4) << setiosflags(ios::right) << usu.token << endl;
+                << setw(4) << resetiosflags(ios::right) << usu.token << endl;
 
         }
         archive.read((char*)(&usu),sizeof(User));
