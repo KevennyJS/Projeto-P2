@@ -11,8 +11,8 @@
 using namespace std;
 
 void criar_materia(int ID_ativo){
-    //struct materias materia;
-    //ofstream materiaS(".\\Materias\\MATERIAS.txt", ios::out | ios::app);
+    struct materias nova_materia;
+    ofstream materiaS(".\\Materias\\MATERIAS.txt", ios::out | ios::app);
 
     fflush(stdin);
     char nome[30]=".\\Materias\\";
@@ -20,14 +20,16 @@ void criar_materia(int ID_ativo){
 
     cout << "Nome Da Materia: ";
     gets(adicao);
-    //materiaS << adicao;
-    //materiaS.close();
+
+    nova_materia.nome_materia = adicao;
+    materiaS.write((const char *)(&nova_materia),sizeof(materias));
+    materiaS.close();
+
     strcat(nome,adicao);
     strcat(nome,".txt");
 
     ofstream arquivo;
     arquivo.open(nome, ios::out);
-    cout << ID_ativo;
     Sleep(2000);
 
     User prof = {ID_ativo, 0, 0, 0, 0};

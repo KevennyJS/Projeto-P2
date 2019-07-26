@@ -12,6 +12,7 @@ using namespace std;
 void realizar_matricula(int usuario_ID);
 void exibir_materias();
 void verMedia(int usuario_ID);
+void visualizarNotas(int usuario_ID);
 
 void home_aluno(int usuario_ID){
     int opcao;
@@ -23,7 +24,7 @@ void home_aluno(int usuario_ID){
 
         cout << "1-Realizar Matricula" << endl;
         cout << "2-" << endl;
-        cout << "3-" << endl;
+        cout << "3-Ver Nota" << endl;
         cout << "4-Ver Media" << endl;
         cout << "0-Deslogar" << endl;
         cout << "Opcao: ";
@@ -85,8 +86,39 @@ void verMedia(int usuario_ID){
 
         while(archive && !archive.eof()){
             if(mediaAtual.id == usuario_ID)
-                cout << "MEDIA É :" << setprecision(1)<<setiosflags(showpoint)<< mediaAtual.media<<endl;
+                cout << "MEDIA ï¿½ :" << setprecision(1)<<setiosflags(showpoint)<< mediaAtual.media<<endl;
             archive.read((char*)(&mediaAtual),sizeof(User));
         }
         archive.close();
+}
+//visualizarNotas(int usuario_ID); //tem que testar dps quando comeÃ§arem a botar nota nas parada 
+
+// aqui o aluno vai digitar o nome da "materia" para olhar as notas
+void visualizarNotas(int usuario_ID){
+    struct aluno materiaAtual;
+
+    char nomeMateria[30];
+    cout <<"Digite o nome da materia que deseja visualizar as notas!"<<endl;
+    cin  >> nomeMateria;
+    cin.ignore;
+    strcat(nomeMateria,".txt");
+
+    fstream archive;
+    archive.open(nomeMateria,ios::in);
+    
+    if(archive.fail())
+    cout <<"Algum problema com o arquivos renicie o programa e tente novamente"<<endl;
+
+    archive.reed((char*)(&materiaAtual),sizeof(aluno));
+    while(archive && !archive.eof()){
+        if(materiaAtual.id_usuario == usuario_ID){
+            cout << setw(10) << "Nota 1"<< setw(10) << "Nota 2"<< setw(10) << "Nota 3"<<"\n"
+                 << setw(10) <<setprecision(1)<<setiosflags(ios::showpoint) << materiaAtual.nota_alunos1
+                 << setw(10) << materiaAtual.nota_alunos2 
+                 << setw(10) << materiaAtual.nota_alunos3 <<endl;
+        }
+        archive.reed((char*)(&materiaAtual),sizeof(aluno));
+    }
+    archive.close();
+
 }
