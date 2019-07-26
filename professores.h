@@ -10,17 +10,25 @@
 #define limpar_tela system("CLS");
 using namespace std;
 
-void criar_materia(int &ID_ativo){
+void criar_materia(int ID_ativo){
+    //struct materias materia;
+    //ofstream materiaS(".\\Materias\\MATERIAS.txt", ios::out | ios::app);
+
     fflush(stdin);
     char nome[30]=".\\Materias\\";
     char adicao[30];
 
     cout << "Nome Da Materia: ";
     gets(adicao);
+    //materiaS << adicao;
+    //materiaS.close();
     strcat(nome,adicao);
     strcat(nome,".txt");
 
-    ofstream arquivo(nome, ios::out);
+    ofstream arquivo;
+    arquivo.open(nome, ios::out);
+    cout << ID_ativo;
+    Sleep(2000);
 
     User prof = {ID_ativo, 0, 0, 0, 0};
     arquivo.write((const char *)(&prof),sizeof(User));
@@ -39,12 +47,11 @@ void criar_materia(int &ID_ativo){
 
 void home_prof(int ID_ativo){
     int opcao;
-    setlocale(LC_ALL,"portuguese");
 
     while (opcao != 0){
         cout << "1- Criar Turma" << endl;
         cout << "0-Deslogar" << endl;
-        cout <<"Opção: ";
+        cout <<"Opï¿½ï¿½o: ";
         cin >> opcao;
 
         switch(opcao){

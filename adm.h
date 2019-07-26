@@ -9,6 +9,7 @@
 
 #define limpar_tela system("CLS");
 using namespace std;
+char* lista_materias = (char*)".\\Materias\\MATERIAS.txt";
 char* nameArchive =(char*)"Bd.txt";
 
 struct User
@@ -23,10 +24,14 @@ struct aluno // arquivos das TURMAS
 {
     int id_disciplina;
     int id_usuario;
-    int nota_alunos1;//distribui as 3 notas pra ficar mais facil o acesso para media, e para exibição das notas, e para o cadastro na materia
+    int nota_alunos1;//distribui as 3 notas pra ficar mais facil o acesso para media, e para exibiï¿½ï¿½o das notas, e para o cadastro na materia
     int nota_alunos2;
     int nota_alunos3;
 } ;
+struct materias
+{
+    char nome_materia[30];
+};
 
 void visualizaTeste();
 void inicializar();
@@ -96,7 +101,7 @@ void inicializar(){
     archive.close();
 }
 
-void verificaCadastrados(int &QuantUsuariosIn) // id automatico vericaçao de quanto usuarios ja estao cadastrados
+void verificaCadastrados(int &QuantUsuariosIn) // id automatico vericaï¿½ao de quanto usuarios ja estao cadastrados
 {
     struct User usu;
     fstream archive;
@@ -192,13 +197,13 @@ void atualizarInfo(){
     if(archive.fail()){
         cout <<"ALGUM PROBLEMA COM SEU ARQUIVO BD ,FECHE E TENTE NOVAMENTE!"<<endl;
     }
-    cout<< "Informe o id referente a Atualização"<<endl;
+    cout<< "Informe o id referente a Atualizao"<<endl;
     cin >> usuario.id;
 
     archive.seekg((usuario.id-1)*sizeof(User));
     archive.read((char*)(&usuario),sizeof(User));
 
-    cout << "-- ATUALIZAR INFORMAÇÕES --"<<endl;
+    cout << "-- ATUALIZAR INFORMAES --"<<endl;
     cout << "[1]- Login\n"
          << "[2]- Senha\n"
          << "[3]- Nome" <<endl;
@@ -219,7 +224,7 @@ void atualizarInfo(){
         cin >>usuario.nome;
         break;
     default:
-        cout <<"Opção não existe!!!"<<endl;
+        cout <<"Opo nÃ£o existe!!!"<<endl;
     }
 
     archive.seekp((usuario.id-1)*sizeof(User));

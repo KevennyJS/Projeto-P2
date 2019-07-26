@@ -1,6 +1,7 @@
 #include <iostream>
 #include "adm.h"
 #include "professores.h"
+#include "alunos.h"
 #define limpar_tela system("CLS");
 
 using namespace std;
@@ -22,8 +23,8 @@ int main(){
         cout << "1- Login" <<endl;
         cout << "2- Registrar-se" << endl;
         cout << "0- Sair" <<endl;
-        cout <<"Opção: " <<endl;
-        cin >> opcao;
+        cout <<"OpÃ§Ã£o: ";
+        cin >>opcao;
         limpar_tela;
 
         if(opcao==1){
@@ -63,6 +64,7 @@ int main(){
                             leitura.close();
                             Sleep(2000);
                             limpar_tela;
+                            home_aluno(usuario.id);
                         }
                         verifica=1;
                         break;
@@ -74,7 +76,7 @@ int main(){
             leitura.close();
 
             if(existe==0){
-                cout << "Usuario Não Existe";
+                cout << "Usuario Nï¿½o Existe";
                 Sleep(2000);
                 existe=0;
             }
