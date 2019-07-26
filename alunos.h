@@ -11,6 +11,7 @@ using namespace std;
 
 void realizar_matricula(int usuario_ID);
 void exibir_materias();
+void verMedia(int usuario_ID);
 
 void home_aluno(int usuario_ID){
     int opcao;
@@ -23,6 +24,7 @@ void home_aluno(int usuario_ID){
         cout << "1-Realizar Matricula" << endl;
         cout << "2-" << endl;
         cout << "3-" << endl;
+        cout << "4-Ver Media" << endl;
         cout << "0-Deslogar" << endl;
         cout << "Opcao: ";
         cin >> opcao;
@@ -36,6 +38,9 @@ void home_aluno(int usuario_ID){
                 break;
             case 3:
 
+                break;
+            case 4:
+                verMedia(usuario_ID);
                 break;
         }
     }
@@ -67,4 +72,21 @@ void exibir_materias(){
             leitura.read((char*)(&m),sizeof(materias));
             cont++;
     }
+}
+void verMedia(int usuario_ID){
+    struct User mediaAtual;
+    fstream archive;
+    archive.open("bd.txt",ios::in);
+
+    if(archive.fail())
+        cout <<"Alguem problema com os arquivos renicie o programa"<<endl;
+
+    archive.read((char*)(&mediaAtual),sizeof(User));
+
+        while(archive && !archive.eof()){
+            if(mediaAtual.id == usuario_ID)
+                cout << "MEDIA É :" << setprecision(1)<<setiosflags(showpoint)<< mediaAtual.media<<endl;
+            archive.read((char*)(&mediaAtual),sizeof(User));
+        }
+        archive.close();
 }

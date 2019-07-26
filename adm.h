@@ -26,9 +26,9 @@ struct aluno // arquivos das TURMAS
 {
     int id_disciplina;
     int id_usuario;
-    int nota_alunos1;//distribui as 3 notas pra ficar mais facil o acesso para media, e para exibi��o das notas, e para o cadastro na materia
-    int nota_alunos2;
-    int nota_alunos3;
+    float nota_alunos1;//distribui as 3 notas pra ficar mais facil o acesso para media, e para exibi��o das notas, e para o cadastro na materia
+    float nota_alunos2;
+    float nota_alunos3;
 } ;
 struct materias
 {
