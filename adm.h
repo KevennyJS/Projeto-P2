@@ -19,6 +19,8 @@ struct User
     char senha[15];
     char nome[15];
     char token;
+    float media;
+    int materias[7];
 };
 struct aluno // arquivos das TURMAS
 {
@@ -85,7 +87,7 @@ void home_adm(){
 
 void inicializar(){
     struct User adm = {1, "admin", "admin", "Admin", 'M'};
-    struct User vazio = {0,"","","",' '};
+    struct User vazio = {0,"","","",' ',0,""};
     ofstream archive;
     archive.open(nameArchive,ios::out);
 
