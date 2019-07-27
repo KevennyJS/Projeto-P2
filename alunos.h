@@ -18,6 +18,7 @@ void home_aluno(int usuario_ID){
     int opcao;
 
     while(opcao !=0 ){
+        system("cls");
         cout << "===========================" << endl;
         cout << "===========ALUNO===========" << endl;
         cout << "===========================" << endl;
@@ -32,16 +33,21 @@ void home_aluno(int usuario_ID){
 
         switch(opcao){
             case 1:
+                system("cls");
                 realizar_matricula(usuario_ID);
                 break;
             case 2:
+                system("cls");
                 exibir_materias();
+                system("pause");
                 break;
             case 3:
 
                 break;
             case 4:
+                system("cls");
                 verMedia(usuario_ID);
+                system("pause");
                 break;
         }
     }
@@ -76,7 +82,7 @@ void exibir_materias(){
 }
 void verMedia(int usuario_ID){
 
-    /*struct User mediaAtual;
+    struct User mediaAtual;
     fstream archive;
     archive.open("bd.txt",ios::in);
 
@@ -87,11 +93,11 @@ void verMedia(int usuario_ID){
 
         while(archive && !archive.eof()){
             if(mediaAtual.id == usuario_ID)
-                cout << "MEDIA � :" << setprecision(1) << setiosflags(showpoint) << mediaAtual.media<<endl;
+            cout <<"MEDIA:"<<mediaAtual.media<<endl;
             archive.read((char*)(&mediaAtual),sizeof(User));
         }
         archive.close();
-*/
+
 }
 
 //visualizarNotas(int usuario_ID); //tem que testar dps quando começarem a botar nota nas parada

@@ -3,13 +3,14 @@
 #include "professores.h"
 #include "alunos.h"
 #define limpar_tela system("CLS");
+#include <locale.h>
 
 using namespace std;
 
 void cadastro_para_aluno();
 
 int main(){
-    setlocale(LC_ALL,"portuguese");
+    setlocale(LC_ALL,"");
     int verifica=0,existe=0,opcao=1;
     char login[15], senha[15];
     char professor='p';
@@ -23,7 +24,7 @@ int main(){
         cout << "1- Login" <<endl;
         cout << "2- Registrar-se" << endl;
         cout << "0- Sair" <<endl;
-        cout <<"Opção: ";
+        cout <<"Opcao: ";
         cin >>opcao;
         limpar_tela;
 
