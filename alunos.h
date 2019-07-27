@@ -75,7 +75,8 @@ void exibir_materias(){
     }
 }
 void verMedia(int usuario_ID){
-    struct User mediaAtual;
+
+    /*struct User mediaAtual;
     fstream archive;
     archive.open("bd.txt",ios::in);
 
@@ -86,14 +87,17 @@ void verMedia(int usuario_ID){
 
         while(archive && !archive.eof()){
             if(mediaAtual.id == usuario_ID)
-                cout << "MEDIA � :" << setprecision(1)<<setiosflags(showpoint)<< mediaAtual.media<<endl;
+                cout << "MEDIA � :" << setprecision(1) << setiosflags(showpoint) << mediaAtual.media<<endl;
             archive.read((char*)(&mediaAtual),sizeof(User));
         }
         archive.close();
+*/
 }
-//visualizarNotas(int usuario_ID); //tem que testar dps quando começarem a botar nota nas parada 
+
+//visualizarNotas(int usuario_ID); //tem que testar dps quando começarem a botar nota nas parada
 
 // aqui o aluno vai digitar o nome da "materia" para olhar as notas
+/*
 void visualizarNotas(int usuario_ID){
     struct aluno materiaAtual;
 
@@ -105,7 +109,7 @@ void visualizarNotas(int usuario_ID){
 
     fstream archive;
     archive.open(nomeMateria,ios::in);
-    
+
     if(archive.fail())
     cout <<"Algum problema com o arquivos renicie o programa e tente novamente"<<endl;
 
@@ -114,7 +118,7 @@ void visualizarNotas(int usuario_ID){
         if(materiaAtual.id_usuario == usuario_ID){
             cout << setw(10) << "Nota 1"<< setw(10) << "Nota 2"<< setw(10) << "Nota 3"<<"\n"
                  << setw(10) <<setprecision(1)<<setiosflags(ios::showpoint) << materiaAtual.nota_alunos1
-                 << setw(10) << materiaAtual.nota_alunos2 
+                 << setw(10) << materiaAtual.nota_alunos2
                  << setw(10) << materiaAtual.nota_alunos3 <<endl;
         }
         archive.reed((char*)(&materiaAtual),sizeof(aluno));
@@ -122,3 +126,4 @@ void visualizarNotas(int usuario_ID){
     archive.close();
 
 }
+*/

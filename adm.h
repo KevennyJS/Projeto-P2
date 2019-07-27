@@ -87,7 +87,9 @@ void home_adm(){
 
 void inicializar(){
     struct User adm = {1, "admin", "admin", "Admin", 'M'};
-    struct User vazio = {0,"","","",' ',0,""};
+    struct User vazio = {0,"","","",' ',0,0};
+    struct materias m_vazia = {""};
+    ofstream arq;
     ofstream archive;
     archive.open(nameArchive,ios::out);
 
@@ -101,6 +103,19 @@ void inicializar(){
         archive.write((const char*)(&vazio),sizeof(User));
     }
     archive.close();
+
+    arq.open(lista_materias, ios::out);
+
+    if(arq.fail())
+    {
+        cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
+    }
+
+    for(int i=0; i<100; i++)
+    {
+        arq.write((const char*)(&m_vazia),sizeof(materias));
+    }
+    arq.close();
 }
 
 void verificaCadastrados(int &QuantUsuariosIn) // id automatico verica�ao de quanto usuarios ja estao cadastrados
