@@ -12,11 +12,11 @@
 using namespace std;
 
 void criar_materia(int ID_ativo){
-    int i,cont_materia=0;
+    int i,cont_materia=1;
     materias m;
 
     fflush(stdin);
-    char nome[30]=".\\Materias\\";
+    char nome[28]=".\\Materias\\";
     char adicao[15];
 
     cout << "Nome Da Materia: ";
@@ -26,15 +26,16 @@ void criar_materia(int ID_ativo){
 
     fstream materiaSaida(".\\Materias\\MATERIAS.txt", ios::out | ios::in | ios::ate);
     //
-    while(materiaSaida && !materiaSaida.eof()){
+    for(int cont=0; cont < 100; cont++){
         if(m.id_materia != 0){
                cont_materia++;
         }
     }
-    //strcpy(m.nome_materia,adicao);
-    //materiaSaida.seekp((cont_materia)*sizeof(materiaSaida));
-    //materiaSaida.write((const char *)(&m),sizeof(materiaSaida));
-    //materiaSaida.close();
+    m.id_materia = cont_materia;
+    strcpy(m.nome_materia,adicao);
+    materiaSaida.seekp((cont_materia)*sizeof(materiaSaida));
+    materiaSaida.write((const char *)(&m),sizeof(materiaSaida));
+    materiaSaida.close();
 
     ofstream arquivo;
     arquivo.open(nome, ios::out);

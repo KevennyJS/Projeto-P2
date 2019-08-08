@@ -76,8 +76,8 @@ void exibir_materias(){
         if(m.id_materia!=0){
             cout << setw(3) << m.id_materia << setw(2) << "|"
             << setw(15) << m.nome_materia << endl;
-            leitura.read((char*)(&m),sizeof(materias));
-        }
+
+        }leitura.read((char*)(&m),sizeof(materias));
     }
     cout << "================================================="<<endl;
 }
@@ -93,7 +93,7 @@ void verMedia(int usuario_ID){
     archive.read((char*)(&mediaAtual),sizeof(User));
 
         while(archive && !archive.eof()){
-            if(mediaAtual.id == usuario_ID)
+            //if(mediaAtual.id == usuario_ID)
             cout <<"MEDIA:"<<mediaAtual.media<<endl;
             archive.read((char*)(&mediaAtual),sizeof(User));
         }

@@ -34,7 +34,7 @@ struct aluno{ // arquivos das TURMAS;
 struct materias{
 
     int id_materia;
-    char nome_materia[30];
+    char nome_materia[28];
 };
 
 void visualizaTeste();
@@ -101,7 +101,7 @@ void inicializar(){
     ofstream archive;
     ofstream reset;
 
-    reset.open(lista_materias, ios::out);
+    reset.open(lista_materias, ios::trunc);
 
     for(int i=0; i<100; i++){
 
@@ -256,7 +256,7 @@ void atualizarInfo(){
 }
 void noname(){
     materias m;
-    fstream leitura(".\\Materias\\MATERIAS.txt", ios::in);
+    fstream leitura(".\\Materias\\MATERIAS.txt", ios::in | ios::out | ios::ate);
     if(leitura.fail()){
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
@@ -266,12 +266,11 @@ void noname(){
     cout << "=================================================" << endl;
 
     while(leitura &&! leitura.eof()){
-
-        if(m.id_materia!=0)
+        //if(m.id_materia<0){
             cout << setw(3) << m.id_materia << setw(2) << "|"
             << setw(15) << m.nome_materia << endl;
-            leitura.read((char*)(&m),sizeof(materias));
+        //}
+    }leitura.read((char*)(&m),sizeof(materias));
 
-    }
     cout << "================================================="<<endl;
 }
