@@ -10,7 +10,7 @@ using namespace std;
 void cadastro_para_aluno();
 
 int main(){
-    setlocale(LC_ALL,"");
+    setlocale(LC_ALL,"portuguese");
     int verifica=0,existe=0,opcao=1;
     char login[15], senha[15];
     char professor='p';

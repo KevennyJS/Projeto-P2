@@ -6,14 +6,15 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <locale.h>
 
 #define limpar_tela system("CLS");
 using namespace std;
 char* lista_materias = (char*)".\\Materias\\MATERIAS.txt";
 char* nameArchive =(char*)"Bd.txt";
 
-struct User
-{
+struct User{
+
     int id;
     char login[15];
     char senha[15];
@@ -22,16 +23,17 @@ struct User
     float media;
     int materias[7];
 };
-struct aluno // arquivos das TURMAS
-{
+struct aluno{ // arquivos das TURMAS;
+
     int id_disciplina;
     int id_usuario;
     float nota_alunos1;//distribui as 3 notas pra ficar mais facil o acesso para media, e para exibi��o das notas, e para o cadastro na materia
     float nota_alunos2;
     float nota_alunos3;
 } ;
-struct materias
-{
+struct materias{
+
+    int id_materia;
     char nome_materia[30];
 };
 
@@ -39,6 +41,7 @@ void visualizaTeste();
 void inicializar();
 void cadastrar();
 void atualizarInfo();
+void noname();
 
 void home_adm(){
     int opcao;
@@ -52,8 +55,9 @@ void home_adm(){
         cout << "2-Cadastrar" << endl;
         cout << "3-Lista de Cadastrados" << endl;
         cout << "4-Atualizar Cadastrados" << endl;
+        cout << "5-Visualizar Materias" << endl;
         cout << "0-Deslogar" << endl;
-        cout << "Opcao: ";
+        cout << "Opção: ";
         cin >> opcao;
 
         switch(opcao){
@@ -78,6 +82,10 @@ void home_adm(){
                 atualizarInfo();
                 getch();
                 break;
+            case 5:
+                noname();
+                getch();
+                break;
         }
         limpar_tela;
         if(opcao == 0) cout << "Saindo..." << endl;
@@ -86,11 +94,21 @@ void home_adm(){
 }
 
 void inicializar(){
-    struct User adm = {1, "admin", "admin", "Admin", 'M'};
-    struct User vazio = {0,"","","",' ',0,0};
-    struct materias m_vazia = {""};
+    User adm = {1, "admin", "admin", "Admin", 'M'};
+    User vazio = {0,"","","",' ',0,0};
+    materias m_vazia = {0,""};
     ofstream arq;
     ofstream archive;
+    ofstream reset;
+
+    reset.open(lista_materias, ios::out);
+
+    for(int i=0; i<100; i++){
+
+        reset.write((const char*)(&m_vazia),sizeof(materias));
+    }
+    reset.close();
+
     archive.open(nameArchive,ios::out);
 
     if(archive.fail())
@@ -103,19 +121,6 @@ void inicializar(){
         archive.write((const char*)(&vazio),sizeof(User));
     }
     archive.close();
-
-    arq.open(lista_materias, ios::out);
-
-    if(arq.fail())
-    {
-        cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
-    }
-
-    for(int i=0; i<100; i++)
-    {
-        arq.write((const char*)(&m_vazia),sizeof(materias));
-    }
-    arq.close();
 }
 
 void verificaCadastrados(int &QuantUsuariosIn) // id automatico verica�ao de quanto usuarios ja estao cadastrados
@@ -249,4 +254,24 @@ void atualizarInfo(){
 
     archive.close();
 }
+void noname(){
+    materias m;
+    fstream leitura(".\\Materias\\MATERIAS.txt", ios::in);
+    if(leitura.fail()){
+        cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
+    }
 
+    cout << "=================================================" << endl;
+    cout << "================Lista De Materias================" << endl;
+    cout << "=================================================" << endl;
+
+    while(leitura &&! leitura.eof()){
+
+        if(m.id_materia!=0)
+            cout << setw(3) << m.id_materia << setw(2) << "|"
+            << setw(15) << m.nome_materia << endl;
+            leitura.read((char*)(&m),sizeof(materias));
+
+    }
+    cout << "================================================="<<endl;
+}
