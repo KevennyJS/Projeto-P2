@@ -86,3 +86,38 @@ void home_prof(int ID_ativo){
         }
     }
 }
+/*
+void atribuirNotas(char* nameMateria,int idDoAlunoNaDisciplina){
+
+    float nota,nAvaliacao;
+    aluno alunoX;
+    fstream archive;
+    archive.open(nameMateria,ios::ate|ios::in|ios::out);
+
+    if(archive.fail())
+        cout << "ALGUM PROBLEMA COM O ARQUIVO!!! FECHE O PROGRAMA " <<endl;
+
+    archive.seekg((idDoAlunoNaDisciplina-1)*sizeof(aluno));
+    archive.read((char*)(&alunoX),sizeof(aluno));
+
+    cout << "Qual avaliação deseja atribuir a nota ?(1,2,3)"<<endl;
+    cin >> nAvaliacao;
+    if(nAvaliacao==1;){
+        cout << "Digite a nota:" ;
+        cin >>alunoX.nota_alunos1;
+    }else if(nAvaliacao==2){
+        cout << "Digite a nota:" ;
+        cin >>alunoX.nota_alunos2 ;
+    }else if(nAvaliacao==3){
+        cout << "Digite a nota:" ;
+        cin >>alunoX.nota_alunos3;
+    }else{
+        cout << "opção Invalida!"<<endl;
+    }
+
+    archive.seekp((idDoAlunoNaDisciplina-1)*sizeof(aluno));
+    archive.write((const char*)(&alunoX),sizeof(aluno));
+
+    archive.close();
+}
+*/

@@ -25,7 +25,7 @@ struct User{
 };
 struct aluno{ // arquivos das TURMAS;
 
-    int id_disciplina;
+    int id_disciplina; // essa aqui e a posição do aluno na materia
     int id_usuario;
     float nota_alunos1;//distribui as 3 notas pra ficar mais facil o acesso para media, e para exibi��o das notas, e para o cadastro na materia
     float nota_alunos2;
