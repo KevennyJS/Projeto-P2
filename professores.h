@@ -121,3 +121,48 @@ void atribuirNotas(char* nameMateria,int idDoAlunoNaDisciplina){
     archive.close();
 }
 */
+
+/*
+void CalculaMediaTurma(char* nomeDaDiciplina){
+    float p*;
+    aluno alunoX;
+    User usuarioBd;
+
+    fstream archiveTurma;
+    archiveTurma.open(nomeDaDiciplina,ios::ate|ios::in|ios::out);
+    fstream archiveBd;
+    archiveTurma.open(nomeDaDiciplina,ios::ate|ios::in|ios::out);
+
+    if(archiveTurma.fail())
+        cout << "ALGUM PROBLEMA COM O ARQUIVO!!! FECHE O PROGRAMA " <<endl;
+
+    if(archiveBd.fail())
+        cout << "ALGUM PROBLEMA COM O ARQUIVO!!! FECHE O PROGRAMA " <<endl;
+
+    p = new float [3];
+    for (int i=0;i<100;i++){
+    archiveTurma.seekg((i)*sizeof(aluno));
+    archiveTurma.read((char*)(&alunoX),sizeof(aluno));
+
+    archiveTurma.seekg((alunoX.id_usuario)*sizeof(User));
+    archiveTurma.read((char*)(&usuarioBd),sizeof(User));
+
+        p*[0] = alunoX.nota_alunos1;
+        p*[1] = alunoX.nota_alunos2;
+        p*[2] = alunoX.nota_alunos3;
+
+        usuarioBd.media = usuarioBd.media + p;
+        usuarioBd.media = usuarioBd.media + p+1;
+        usuarioBd.media = usuarioBd.media + p+2;
+
+        usuarioBd.media = media/3;
+
+    archiveTurma.seekp((alunoX.id_usuario)*sizeof(User));
+    archiveTurma.read((const char*)(&usuarioBd),sizeof(User));
+
+    }
+
+        archiveTurma.close();
+        archiveBd.close();
+}
+*/
