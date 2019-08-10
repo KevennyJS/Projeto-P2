@@ -12,32 +12,34 @@
 using namespace std;
 
 void criar_materia(int ID_ativo){
-    int i,cont_materia=1;
+    int i,cont_materia=0;
     materias m;
-
     fflush(stdin);
     char nome[28]=".\\Materias\\";
-    char adicao[15];
+    fstream materiaSaida(".\\Materias\\MATERIAS.txt", ios::out | ios::in | ios::ate);
 
     cout << "Nome Da Materia: ";
-    cin >> adicao;
-    strcat(nome,adicao);
-    strcat(nome,".txt");
+    cin >> m.nome_materia;
 
-    fstream materiaSaida(".\\Materias\\MATERIAS.txt", ios::out | ios::in | ios::ate);
     //
-    for(int cont=0; cont < 100; cont++){
+    while (materiaSaida &&! materiaSaida.eof()){
         if(m.id_materia != 0){
                cont_materia++;
-        }
+        }materiaSaida.read((char*)(&m),sizeof(materias));
+        if(m.id_materia == 0) break;
     }
     m.id_materia = cont_materia;
-    strcpy(m.nome_materia,adicao);
-    materiaSaida.seekp((cont_materia)*sizeof(materiaSaida));
-    materiaSaida.write((const char *)(&m),sizeof(materiaSaida));
+    cout << "O nome e " << m.nome_materia << " e o id e: " << m.id_materia;
+    Sleep(2000);
+    materiaSaida.close();
+    materiaSaida.open(".\\Materias\\MATERIAS.txt", ios::out | ios::in | ios::ate);
+    materiaSaida.seekp((cont_materia-1)*sizeof(materias));
+    materiaSaida.write((const char *)(&m),sizeof(materias));
     materiaSaida.close();
 
     ofstream arquivo;
+    strcat(nome,m.nome_materia);
+    strcat(nome,".txt");
     arquivo.open(nome, ios::out);
     Sleep(2000);
 
@@ -86,6 +88,7 @@ void home_prof(int ID_ativo){
         }
     }
 }
+
 /*
 void atribuirNotas(char* nameMateria,int idDoAlunoNaDisciplina){
 
