@@ -11,29 +11,23 @@
 #define limpar_tela system("CLS");
 using namespace std;
 
+int id_para_materia();
+
 void criar_materia(int ID_ativo){
-    int i,cont_materia=0;
+    int i,cont_materia=1,cont;
     materias m;
     fflush(stdin);
     char nome[28]=".\\Materias\\";
-    fstream materiaSaida(".\\Materias\\MATERIAS.txt", ios::out | ios::in | ios::ate);
+    fstream materiaSaida;
+    fstream leitura;
 
     cout << "Nome Da Materia: ";
     cin >> m.nome_materia;
 
-    //
-    while (materiaSaida &&! materiaSaida.eof()){
-        if(m.id_materia != 0){
-               cont_materia++;
-        }materiaSaida.read((char*)(&m),sizeof(materias));
-        if(m.id_materia == 0) break;
-    }
-    m.id_materia = cont_materia;
-    cout << "O nome e " << m.nome_materia << " e o id e: " << m.id_materia;
-    Sleep(2000);
-    materiaSaida.close();
+    m.id_materia = id_para_materia();
+
     materiaSaida.open(".\\Materias\\MATERIAS.txt", ios::out | ios::in | ios::ate);
-    materiaSaida.seekp((cont_materia-1)*sizeof(materias));
+    materiaSaida.seekp((m.id_materia)*sizeof(materias));
     materiaSaida.write((const char *)(&m),sizeof(materias));
     materiaSaida.close();
 
@@ -87,6 +81,24 @@ void home_prof(int ID_ativo){
                 break;
         }
     }
+}
+int id_para_materia(){
+    int total=0;
+    struct materias m;
+    fstream leitura(lista_materias, ios::in);
+
+    if(leitura.fail()){
+        cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
+    }
+
+    while(leitura &&! leitura.eof()){
+        if(m.id_materia != 0 && m.id_materia <101){
+            total=total+1;
+        }
+        leitura.read((char*)(&m),sizeof(materias));
+    }
+
+    return total+1;
 }
 
 /*
