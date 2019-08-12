@@ -102,9 +102,7 @@ int id_para_materia(){
 }
 
 /*
-void atribuirNotas(int idDoAlunoNaDisciplina){
-    char nameMateria[40]="";
-    selecioMateria(nameMateria);
+void atribuirNotas(char* nameMateria,int idDoAlunoNaDisciplina){
 
     float nota,nAvaliacao;
     aluno alunoX;
@@ -140,11 +138,7 @@ void atribuirNotas(int idDoAlunoNaDisciplina){
 */
 
 /*
-void CalculaMediaTurma(){
-
-    char nomeDaDiciplina[40]="";
-    selecioMateria(nomeDaDiciplina);
-
+void CalculaMediaTurma(char* nomeDaDiciplina){
     float p*;
     aluno alunoX;
     User usuarioBd;
