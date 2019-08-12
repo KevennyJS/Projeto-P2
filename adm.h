@@ -21,7 +21,7 @@ struct User{
     char nome[15];
     char token;
     float media;
-    int materias[7];
+    int materias;
 };
 struct aluno{ // arquivos das TURMAS;
 
@@ -30,6 +30,7 @@ struct aluno{ // arquivos das TURMAS;
     float nota_alunos1;//distribui as 3 notas pra ficar mais facil o acesso para media, e para exibi��o das notas, e para o cadastro na materia
     float nota_alunos2;
     float nota_alunos3;
+    float media;
 } ;
 struct materias{
 
