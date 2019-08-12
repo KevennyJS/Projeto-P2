@@ -6,11 +6,11 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <locale.h>
 using namespace std;
 
 void realizar_matricula(int usuario_ID);
 int exibir_materias();
-void verMedia(int usuario_ID);
 void visualizarNotas(int usuario_ID);
 void cadastrar_na_materia(int id_aluno,char name[15]);
 int id_na_materia(char nome_materia[28]);
@@ -26,7 +26,6 @@ void home_aluno(int usuario_ID){
 
         cout << "1-Realizar Matricula" << endl;
         cout << "2-Ver Nota" << endl;
-        cout << "3-Ver Media" << endl;
         cout << "0-Deslogar" << endl;
         cout << "Opcao: ";
         cin >> opcao;
@@ -40,9 +39,6 @@ void home_aluno(int usuario_ID){
                 visualizarNotas(usuario_ID);
                 break;
             case 3:
-                system("cls");
-                verMedia(usuario_ID);
-                system("pause");
                 break;
         }
     }
@@ -126,25 +122,6 @@ int exibir_materias(){
 
     return id_selecionado;
 }
-void verMedia(int usuario_ID){
-
-    struct User mediaAtual;
-    fstream archive;
-    archive.open("bd.txt",ios::in);
-
-    if(archive.fail())
-        cout <<"Alguem problema com os arquivos renicie o programa"<<endl;
-
-    archive.read((char*)(&mediaAtual),sizeof(User));
-
-        while(archive && !archive.eof()){
-            //if(mediaAtual.id == usuario_ID)
-            cout <<"MEDIA:"<<mediaAtual.media<<endl;
-            archive.read((char*)(&mediaAtual),sizeof(User));
-        }
-        archive.close();
-
-}
 
 int id_na_materia(char nome_materia[28]){
     int total=0;
@@ -188,6 +165,8 @@ void visualizarNotas(int usuario_ID){
                  << setw(10) <<setprecision(1)<<setiosflags(ios::showpoint) << materiaAtual.nota_alunos1
                  << setw(10) << materiaAtual.nota_alunos2
                  << setw(10) << materiaAtual.nota_alunos3 <<endl;
+
+                 cout<<"\nMEDIA: "<<materiaAtual.media<<endl;
 
         }
         archive.read((char*)(&materiaAtual),sizeof(aluno));

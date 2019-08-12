@@ -15,6 +15,7 @@ void selecioMateria(char nameMateria[40]);
 int id_para_materia();
 void atribuirNotas();
 void CalculaMediaTurma();
+void visualizarTurma();
 
 void criar_materia(int ID_ativo){
     int i;
@@ -64,6 +65,7 @@ void home_prof(int ID_ativo){
         cout << "1- Criar Turma" << endl;
         cout << "2-Atribuir Nota" << endl;
         cout << "3-Media" << endl;
+        cout << "4-Visualizar Turma" << endl;
         cout << "0-Deslogar" << endl;
         cout <<"Opção: ";
         cin >> opcao;
@@ -82,7 +84,7 @@ void home_prof(int ID_ativo){
                 CalculaMediaTurma();
                 break;
             case 4:
-
+                visualizarTurma();
                 break;
             case 5:
 
@@ -125,9 +127,10 @@ void atribuirNotas(){
     char nameMateria[40]="";
     selecioMateria(nameMateria);
 
+    do{
     cout << "Digite o id do aluno na turma"<<endl;
     cin  >> idDoAlunoNaDisciplina;
-
+    }while(idDoAlunoNaDisciplina==0);
 
     float nota,nAvaliacao;
     aluno alunoX;
@@ -137,7 +140,7 @@ void atribuirNotas(){
     if(archive.fail())
         cout << "ALGUM PROBLEMA COM O ARQUIVO!!! FECHE O PROGRAMA " <<endl;
 
-    archive.seekg((idDoAlunoNaDisciplina-1)*sizeof(aluno));
+    archive.seekg((idDoAlunoNaDisciplina)*sizeof(aluno));
     archive.read((char*)(&alunoX),sizeof(aluno));
 
     cout << "Qual avaliação deseja atribuir a nota ?(1,2,3)"<<endl;
@@ -155,7 +158,7 @@ void atribuirNotas(){
         cout << "opção Invalida!"<<endl;
     }
 
-    archive.seekp((idDoAlunoNaDisciplina-1)*sizeof(aluno));
+    archive.seekp((idDoAlunoNaDisciplina)*sizeof(aluno));
     archive.write((const char*)(&alunoX),sizeof(aluno));
 
     archive.close();
@@ -169,43 +172,62 @@ void CalculaMediaTurma(){
 
     float *p;
     aluno alunoX;
-    User usuarioBd;
 
     fstream archiveTurma;
-    archiveTurma.open(nomeDaDiciplina,ios::ate|ios::in|ios::out);
-    fstream archiveBd;
     archiveTurma.open(nomeDaDiciplina,ios::ate|ios::in|ios::out);
 
     if(archiveTurma.fail())
         cout << "ALGUM PROBLEMA COM O ARQUIVO!!! FECHE O PROGRAMA " <<endl;
 
-    if(archiveBd.fail())
-        cout << "ALGUM PROBLEMA COM O ARQUIVO!!! FECHE O PROGRAMA " <<endl;
-
     p = new float [3];
-    for (int i=0;i<100;i++){
+    for (int i=1;i<51;i++){
     archiveTurma.seekg((i)*sizeof(aluno));
     archiveTurma.read((char*)(&alunoX),sizeof(aluno));
 
-    archiveTurma.seekg((alunoX.id_usuario)*sizeof(User));
-    archiveTurma.read((char*)(&usuarioBd),sizeof(User));
+        alunoX.media=0;
 
         p[0] = alunoX.nota_alunos1;
         p[1] = alunoX.nota_alunos2;
         p[2] = alunoX.nota_alunos3;
 
-        usuarioBd.media = usuarioBd.media + *p;
-        usuarioBd.media = usuarioBd.media + *p+1;
-        usuarioBd.media = usuarioBd.media + *p+2;
+        alunoX.media = alunoX.media + *(p);
+        alunoX.media = alunoX.media + *(p+1);
+        alunoX.media = alunoX.media + *(p+2);
 
-        usuarioBd.media = usuarioBd.media/3;
+        alunoX.media = alunoX.media/3;
 
-    archiveTurma.seekp((alunoX.id_usuario)*sizeof(User));
-    archiveTurma.write((const char*)(&usuarioBd),sizeof(User));
+    archiveTurma.seekp((i)*sizeof(aluno));
+    archiveTurma.write((const char*)(&alunoX),sizeof(aluno));
 
     }
 
         archiveTurma.close();
-        archiveBd.close();
 }
+void visualizarTurma(){
+    struct aluno materiaAtual;
 
+    char nomeMateria[40]="";
+    selecioMateria(nomeMateria);
+
+    fstream archive;
+    archive.open(nomeMateria,ios::in);
+
+    if(archive.fail())
+    cout <<"Algum problema com o arquivos renicie o programa e tente novamente"<<endl;
+
+    archive.read((char*)(&materiaAtual),sizeof(aluno));
+    while(archive && !archive.eof()){
+        if(materiaAtual.id_disciplina!=0){
+            cout <<"id_materia : " <<materiaAtual.id_disciplina<<"///"<<" Id do aluno: "<<materiaAtual.id_usuario<<endl;
+            cout << setw(10) << "Nota 1"<< setw(10) << "Nota 2"<< setw(10) << "Nota 3"<<"\n"
+                 << setw(10) <<setprecision(1)<<setiosflags(ios::showpoint) << materiaAtual.nota_alunos1
+                 << setw(10) << materiaAtual.nota_alunos2
+                 << setw(10) << materiaAtual.nota_alunos3 <<endl;
+                cout<<"\nMEDIA: "<<materiaAtual.media<<endl;
+        }
+        archive.read((char*)(&materiaAtual),sizeof(aluno));
+    }
+    system("pause");
+    archive.close();
+
+}

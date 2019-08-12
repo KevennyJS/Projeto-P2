@@ -20,7 +20,6 @@ struct User{
     char senha[15];
     char nome[15];
     char token;
-    float media;
     int materias;
 };
 struct aluno{ // arquivos das TURMAS;
@@ -96,7 +95,7 @@ void home_adm(){
 
 void inicializar(){
     User adm = {1, "admin", "admin", "Admin", 'M'};
-    User vazio = {0,"","","",' ',0,0};
+    User vazio = {0,"","","",' ',0};
     materias m_vazia = {0, ""};
     ofstream arq;
     ofstream archive;
