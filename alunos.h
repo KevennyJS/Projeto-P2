@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <stdlib.h>
 #include <conio.h>
 #include <string.h>
@@ -6,7 +6,6 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-
 using namespace std;
 
 void realizar_matricula(int usuario_ID);
@@ -14,6 +13,7 @@ int exibir_materias();
 void verMedia(int usuario_ID);
 void visualizarNotas(int usuario_ID);
 void cadastrar_na_materia(int id_aluno,char name[15]);
+int id_na_materia(char nome_materia[28]);
 
 void home_aluno(int usuario_ID){
     int opcao;
@@ -25,9 +25,8 @@ void home_aluno(int usuario_ID){
         cout << "===========================" << endl;
 
         cout << "1-Realizar Matricula" << endl;
-        cout << "2-" << endl;
-        cout << "3-Ver Nota" << endl;
-        cout << "4-Ver Media" << endl;
+        cout << "2-Ver Nota" << endl;
+        cout << "3-Ver Media" << endl;
         cout << "0-Deslogar" << endl;
         cout << "Opcao: ";
         cin >> opcao;
@@ -41,9 +40,6 @@ void home_aluno(int usuario_ID){
 
                 break;
             case 3:
-
-                break;
-            case 4:
                 system("cls");
                 verMedia(usuario_ID);
                 system("pause");
@@ -68,9 +64,9 @@ void realizar_matricula(int usuario_ID){
     while(leitura &&! leitura.eof()){
         if(m.id_materia != 0 && m.id_materia <101){
             if(m.id_materia==id_selecionado){ // se o id escolhido pelo usuário estiver na lista de materias disponiveis
-                    cadastrar_na_materia(usuario_ID,m.nome_materia);
-                    confirm=1;
-                    break;
+                cadastrar_na_materia(usuario_ID,m.nome_materia);
+                confirm=1;
+                break;
             }
         }
         leitura.read((char*)(&m),sizeof(materias));
@@ -82,31 +78,20 @@ leitura.close();
 }
 
 void cadastrar_na_materia(int id_aluno,char name[15]){
+    int id_materia;
     aluno usuario;
-    int cont_alunos=1;
     char nome_materia[28]=".\\Materias\\";
     strcat(nome_materia,name);
     strcat(nome_materia,".txt");
 
-    fstream arquivoS(nome_materia,ios::in | ios::out | ios::ate);
-    usuario.id_usuario = id_aluno;
-    while(arquivoS &&! arquivoS.eof()){
-        if(usuario.id_usuario != 0){
-            cont_alunos++;
-            usuario.id_disciplina = cont_alunos;
-
-            cout<<"id na diciplina" << usuario.id_disciplina <<endl;
-            cout<<"id do usuario" << usuario.id_usuario <<endl;
-            cout << "contador de alunos" << cont_alunos <<endl<<endl;getch();
-        }arquivoS.read((char*)(&usuario),sizeof(aluno));
-    }
-    Sleep(2000);
-    arquivoS.close();
+    fstream arquivoS;
     arquivoS.open(nome_materia, ios::in | ios:: out | ios::ate);
 
-    aluno add = {cont_alunos,id_aluno,0.0,0.0,0.0};
+    id_materia = id_na_materia(nome_materia);
 
-    arquivoS.seekp((cont_alunos)*sizeof(aluno));
+    aluno add = {id_materia,id_aluno,0.0,0.0,0.0,0.0};
+
+    arquivoS.seekp((id_materia)*sizeof(aluno));
     arquivoS.write((const char *)(&add),sizeof(aluno));
 
     arquivoS.close();
@@ -159,6 +144,25 @@ void verMedia(int usuario_ID){
         }
         archive.close();
 
+}
+
+int id_na_materia(char nome_materia[28]){
+    int total=0;
+    struct aluno a;
+    fstream leitura(nome_materia, ios::in);
+
+    if(leitura.fail()){
+        cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
+    }
+
+    while(leitura &&! leitura.eof()){
+        if(a.id_disciplina != 0 && a.id_disciplina <100){
+            total=total+1;
+        }
+        leitura.read((char*)(&a),sizeof(aluno));
+    }
+    leitura.close();
+    return total+1;
 }
 
 //visualizarNotas(int usuario_ID); //tem que testar dps quando começarem a botar nota nas parada
