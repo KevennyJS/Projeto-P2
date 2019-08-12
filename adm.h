@@ -25,8 +25,8 @@ struct User{
 };
 struct aluno{ // arquivos das TURMAS;
 
-    int id_disciplina; // essa aqui e a posição do aluno na materia
-    int id_usuario;    // esse aqui recebe o id la do Bd
+    int id_disciplina;
+    int id_usuario;
     float nota_alunos1;//distribui as 3 notas pra ficar mais facil o acesso para media, e para exibi��o das notas, e para o cadastro na materia
     float nota_alunos2;
     float nota_alunos3;
@@ -255,8 +255,9 @@ void atualizarInfo(){
     archive.close();
 }
 void noname(){
-    materias m;
-    fstream leitura(".\\Materias\\MATERIAS.txt", ios::in | ios::out | ios::ate);
+    struct materias m;
+    fstream leitura(lista_materias, ios::in);
+
     if(leitura.fail()){
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
@@ -266,11 +267,12 @@ void noname(){
     cout << "=================================================" << endl;
 
     while(leitura &&! leitura.eof()){
-        //if(m.id_materia<0){
+        if(m.id_materia != 0 && m.id_materia <101){
             cout << setw(3) << m.id_materia << setw(2) << "|"
             << setw(15) << m.nome_materia << endl;
-        //}
-    }leitura.read((char*)(&m),sizeof(materias));
+        }
+        leitura.read((char*)(&m),sizeof(materias));
+    }
 
     cout << "================================================="<<endl;
 }

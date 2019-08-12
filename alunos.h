@@ -61,8 +61,9 @@ void realizar_matricula(int usuario_ID){
 
 }
 void exibir_materias(){
-    materias m;
-    ifstream leitura(".\\Materias\\MATERIAS.txt", ios::in);
+   struct materias m;
+    fstream leitura(lista_materias, ios::in);
+
     if(leitura.fail()){
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
@@ -72,13 +73,13 @@ void exibir_materias(){
     cout << "=================================================" << endl;
 
     while(leitura &&! leitura.eof()){
-
-        if(m.id_materia!=0){
+        if(m.id_materia != 0 && m.id_materia <101){
             cout << setw(3) << m.id_materia << setw(2) << "|"
             << setw(15) << m.nome_materia << endl;
-
-        }leitura.read((char*)(&m),sizeof(materias));
+        }
+        leitura.read((char*)(&m),sizeof(materias));
     }
+
     cout << "================================================="<<endl;
 }
 void verMedia(int usuario_ID){
