@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <stdlib.h>
 #include <conio.h>
 #include <string.h>
@@ -14,7 +14,7 @@ using namespace std;
 int id_para_materia();
 
 void criar_materia(int ID_ativo){
-    int i,cont_materia=1,cont;
+    int i;
     materias m;
     fflush(stdin);
     char nome[28]=".\\Materias\\";
@@ -35,18 +35,20 @@ void criar_materia(int ID_ativo){
     strcat(nome,m.nome_materia);
     strcat(nome,".txt");
     arquivo.open(nome, ios::out);
-    Sleep(2000);
 
-    User prof = {ID_ativo, "", "", "", ' ', 0.0, 0};
-    arquivo.write((const char *)(&prof),sizeof(User));
-
-    User UVazio = {0, "", "", "", ' ', 0.0, 0};
+    aluno UVazio = {0, 0, 0.0, 0.0, 0.0,0.0};
 
     for(int i = 0; i < 50; i++){
-        arquivo.write((const char *)(&UVazio),sizeof(User));
+        arquivo.write((const char *)(&UVazio),sizeof(aluno));
     }
-
     arquivo.close();
+    fstream arquivoS(nome, ios::in | ios::out | ios::ate);
+
+    aluno prof = {1, ID_ativo, 0.0, 0.0, 0.0,0.0};
+    arquivoS.seekp((1)*sizeof(aluno));
+    arquivoS.write((const char *)(&prof),sizeof(aluno));
+    arquivoS.close();
+
     limpar_tela;
     cout << "Materia Criada Com Sucesso!!!" << endl;
     Sleep(1500);
@@ -82,6 +84,7 @@ void home_prof(int ID_ativo){
         }
     }
 }
+
 int id_para_materia(){
     int total=0;
     struct materias m;
@@ -97,14 +100,12 @@ int id_para_materia(){
         }
         leitura.read((char*)(&m),sizeof(materias));
     }
-
+    leitura.close();
     return total+1;
 }
 
 /*
-void atribuirNotas(int idDoAlunoNaDisciplina){
-    char nameMateria[40]="";
-    selecioMateria(nameMateria);
+void atribuirNotas(char* nameMateria,int idDoAlunoNaDisciplina){
 
     float nota,nAvaliacao;
     aluno alunoX;
@@ -140,11 +141,7 @@ void atribuirNotas(int idDoAlunoNaDisciplina){
 */
 
 /*
-void CalculaMediaTurma(){
-
-    char nomeDaDiciplina[40]="";
-    selecioMateria(nomeDaDiciplina);
-
+void CalculaMediaTurma(char* nomeDaDiciplina){
     float p*;
     aluno alunoX;
     User usuarioBd;
@@ -160,33 +157,30 @@ void CalculaMediaTurma(){
     if(archiveBd.fail())
         cout << "ALGUM PROBLEMA COM O ARQUIVO!!! FECHE O PROGRAMA " <<endl;
 
-void home_prof(int ID_ativo){
-    int opcao;
+    p = new float [3];
+    for (int i=0;i<100;i++){
+    archiveTurma.seekg((i)*sizeof(aluno));
+    archiveTurma.read((char*)(&alunoX),sizeof(aluno));
 
-    while (opcao != 0){
-        cout << "1- Criar Turma" << endl;
-        cout << "0-Deslogar" << endl;
-        cout <<"Opção: ";
-        cin >> opcao;
+    archiveTurma.seekg((alunoX.id_usuario)*sizeof(User));
+    archiveTurma.read((char*)(&usuarioBd),sizeof(User));
 
-        switch(opcao){
-            case 1:
-                limpar_tela;
-                criar_materia(ID_ativo);
-                limpar_tela;
-                break;
-            case 2:
+        p*[0] = alunoX.nota_alunos1;
+        p*[1] = alunoX.nota_alunos2;
+        p*[2] = alunoX.nota_alunos3;
 
-                break;
-            case 3:
+        usuarioBd.media = usuarioBd.media + p;
+        usuarioBd.media = usuarioBd.media + p+1;
+        usuarioBd.media = usuarioBd.media + p+2;
 
-                break;
-            case 4:
+        usuarioBd.media = media/3;
 
-                break;
-            case 5:
+    archiveTurma.seekp((alunoX.id_usuario)*sizeof(User));
+    archiveTurma.read((const char*)(&usuarioBd),sizeof(User));
 
-                break;
-        }
     }
+
+        archiveTurma.close();
+        archiveBd.close();
 }
+*/
