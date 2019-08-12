@@ -109,11 +109,8 @@ void verMedia(int usuario_ID){
 void visualizarNotas(int usuario_ID){
     struct aluno materiaAtual;
 
-    char nomeMateria[30];
-    cout <<"Digite o nome da materia que deseja visualizar as notas!"<<endl;
-    cin  >> nomeMateria;
-    cin.ignore;
-    strcat(nomeMateria,".txt");
+    char nomeMateria[40]="";
+    selecioMateria(nomeMateria);
 
     fstream archive;
     archive.open(nomeMateria,ios::in);
@@ -135,3 +132,12 @@ void visualizarNotas(int usuario_ID){
 
 }
 */
+void selecioMateria(char nameMateria[40]){  //quando for chamar essa funçao o parametro tem q ser zerado
+    strcat(nameMateria,".//Materias//");
+    char nameAux[15];
+    cout << "Nome da Materia a Selecionar:"<<endl;
+    cin >> nameAux;
+    strcat(nameAux,".txt");
+    strcat(nameMateria,nameAux);
+    //cout <<nameMateria<<endl;
+}
