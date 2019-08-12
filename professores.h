@@ -11,7 +11,10 @@
 #define limpar_tela system("CLS");
 using namespace std;
 
+void selecioMateria(char nameMateria[40]);
 int id_para_materia();
+void atribuirNotas();
+void CalculaMediaTurma();
 
 void criar_materia(int ID_ativo){
     int i;
@@ -59,6 +62,8 @@ void home_prof(int ID_ativo){
 
     while (opcao != 0){
         cout << "1- Criar Turma" << endl;
+        cout << "2-Atribuir Nota" << endl;
+        cout << "3-Media" << endl;
         cout << "0-Deslogar" << endl;
         cout <<"Opção: ";
         cin >> opcao;
@@ -70,10 +75,11 @@ void home_prof(int ID_ativo){
                 limpar_tela;
                 break;
             case 2:
-
+                limpar_tela;
+                atribuirNotas();
                 break;
             case 3:
-
+                CalculaMediaTurma();
                 break;
             case 4:
 
@@ -103,11 +109,25 @@ int id_para_materia(){
     leitura.close();
     return total+1;
 }
+void selecioMateria(char nameMateria[40]){  //quando for chamar essa funçao o parametro tem q ser zerado
+    strcat(nameMateria,".//Materias//");
+    char nameAux[15];
+    cout << "Nome da Materia a Selecionar:"<<endl;
+    cin >> nameAux;
+    strcat(nameAux,".txt");
+    strcat(nameMateria,nameAux);
+    //cout <<nameMateria<<endl;
+}
 
-/*
-void atribuirNotas(int idDoAlunoNaDisciplina){
+
+void atribuirNotas(){
+    int idDoAlunoNaDisciplina;
     char nameMateria[40]="";
     selecioMateria(nameMateria);
+
+    cout << "Digite o id do aluno na turma"<<endl;
+    cin  >> idDoAlunoNaDisciplina;
+
 
     float nota,nAvaliacao;
     aluno alunoX;
@@ -122,7 +142,7 @@ void atribuirNotas(int idDoAlunoNaDisciplina){
 
     cout << "Qual avaliação deseja atribuir a nota ?(1,2,3)"<<endl;
     cin >> nAvaliacao;
-    if(nAvaliacao==1;){
+    if(nAvaliacao==1){
         cout << "Digite a nota:" ;
         cin >>alunoX.nota_alunos1;
     }else if(nAvaliacao==2){
@@ -140,15 +160,14 @@ void atribuirNotas(int idDoAlunoNaDisciplina){
 
     archive.close();
 }
-*/
 
-/*
+
+
 void CalculaMediaTurma(){
-
     char nomeDaDiciplina[40]="";
     selecioMateria(nomeDaDiciplina);
 
-    float p*;
+    float *p;
     aluno alunoX;
     User usuarioBd;
 
@@ -171,22 +190,22 @@ void CalculaMediaTurma(){
     archiveTurma.seekg((alunoX.id_usuario)*sizeof(User));
     archiveTurma.read((char*)(&usuarioBd),sizeof(User));
 
-        p*[0] = alunoX.nota_alunos1;
-        p*[1] = alunoX.nota_alunos2;
-        p*[2] = alunoX.nota_alunos3;
+        p[0] = alunoX.nota_alunos1;
+        p[1] = alunoX.nota_alunos2;
+        p[2] = alunoX.nota_alunos3;
 
-        usuarioBd.media = usuarioBd.media + p;
-        usuarioBd.media = usuarioBd.media + p+1;
-        usuarioBd.media = usuarioBd.media + p+2;
+        usuarioBd.media = usuarioBd.media + *p;
+        usuarioBd.media = usuarioBd.media + *p+1;
+        usuarioBd.media = usuarioBd.media + *p+2;
 
-        usuarioBd.media = media/3;
+        usuarioBd.media = usuarioBd.media/3;
 
     archiveTurma.seekp((alunoX.id_usuario)*sizeof(User));
-    archiveTurma.read((const char*)(&usuarioBd),sizeof(User));
+    archiveTurma.write((const char*)(&usuarioBd),sizeof(User));
 
     }
 
         archiveTurma.close();
         archiveBd.close();
 }
-*/
+
