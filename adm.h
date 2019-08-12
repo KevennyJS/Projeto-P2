@@ -96,7 +96,7 @@ void home_adm(){
 void inicializar(){
     User adm = {1, "admin", "admin", "Admin", 'M'};
     User vazio = {0,"","","",' ',0,0};
-    materias m_vazia = {0,""};
+    materias m_vazia = {0, ""};
     ofstream arq;
     ofstream archive;
     ofstream reset;
