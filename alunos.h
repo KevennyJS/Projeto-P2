@@ -10,9 +10,10 @@
 using namespace std;
 
 void realizar_matricula(int usuario_ID);
-void exibir_materias();
+int exibir_materias();
 void verMedia(int usuario_ID);
 void visualizarNotas(int usuario_ID);
+void cadastrar_na_materia(int id_aluno,char name[15]);
 
 void home_aluno(int usuario_ID){
     int opcao;
@@ -37,9 +38,7 @@ void home_aluno(int usuario_ID){
                 realizar_matricula(usuario_ID);
                 break;
             case 2:
-                system("cls");
-                exibir_materias();
-                system("pause");
+
                 break;
             case 3:
 
@@ -57,11 +56,66 @@ void home_aluno(int usuario_ID){
 
 }
 void realizar_matricula(int usuario_ID){
+    int id_selecionado = exibir_materias();
+    int confirm=0;
+    struct materias m;
+    fstream leitura(lista_materias, ios::in);
 
+    if(leitura.fail()){
+        cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
+    }
 
+    while(leitura &&! leitura.eof()){
+        if(m.id_materia != 0 && m.id_materia <101){
+            if(m.id_materia==id_selecionado){ // se o id escolhido pelo usuário estiver na lista de materias disponiveis
+                    cadastrar_na_materia(usuario_ID,m.nome_materia);
+                    confirm=1;
+                    break;
+            }
+        }
+        leitura.read((char*)(&m),sizeof(materias));
+    }
+    if(confirm==0){
+        cout << "Materia inexistente" << endl;
+    }
+leitura.close();
 }
-void exibir_materias(){
-   struct materias m;
+
+void cadastrar_na_materia(int id_aluno,char name[15]){
+    aluno usuario;
+    int cont_alunos=1;
+    char nome_materia[28]=".\\Materias\\";
+    strcat(nome_materia,name);
+    strcat(nome_materia,".txt");
+
+    fstream arquivoS(nome_materia,ios::in | ios::out | ios::ate);
+    usuario.id_usuario = id_aluno;
+    while(arquivoS &&! arquivoS.eof()){
+        if(usuario.id_usuario != 0){
+            cont_alunos++;
+            usuario.id_disciplina = cont_alunos;
+
+            cout<<"id na diciplina" << usuario.id_disciplina <<endl;
+            cout<<"id do usuario" << usuario.id_usuario <<endl;
+            cout << "contador de alunos" << cont_alunos <<endl<<endl;getch();
+        }arquivoS.read((char*)(&usuario),sizeof(aluno));
+    }
+    Sleep(2000);
+    arquivoS.close();
+    arquivoS.open(nome_materia, ios::in | ios:: out | ios::ate);
+
+    aluno add = {cont_alunos,id_aluno,0.0,0.0,0.0};
+
+    arquivoS.seekp((cont_alunos)*sizeof(aluno));
+    arquivoS.write((const char *)(&add),sizeof(aluno));
+
+    arquivoS.close();
+    limpar_tela; cout<< "Registrado Com Sucesso" <<endl; Sleep(2000);
+}
+
+int exibir_materias(){
+    int id_selecionado;
+    struct materias m;
     fstream leitura(lista_materias, ios::in);
 
     if(leitura.fail()){
@@ -73,14 +127,19 @@ void exibir_materias(){
     cout << "=================================================" << endl;
 
     while(leitura &&! leitura.eof()){
-        if(m.id_materia != 0 && m.id_materia <101){
+        if(m.id_materia > 0 && m.id_materia <100 && m.nome_materia != ""){
             cout << setw(3) << m.id_materia << setw(2) << "|"
             << setw(15) << m.nome_materia << endl;
         }
         leitura.read((char*)(&m),sizeof(materias));
     }
-
+    leitura.close();
     cout << "================================================="<<endl;
+
+    cout << "ID da materia: ";
+    cin >> id_selecionado;
+
+    return id_selecionado;
 }
 void verMedia(int usuario_ID){
 

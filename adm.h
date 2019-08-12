@@ -25,8 +25,8 @@ struct User{
 };
 struct aluno{ // arquivos das TURMAS;
 
-    int id_disciplina;
-    int id_usuario;
+    int id_disciplina; // essa aqui e a posição do aluno na materia
+    int id_usuario;    // esse aqui recebe o id la do Bd
     float nota_alunos1;//distribui as 3 notas pra ficar mais facil o acesso para media, e para exibi��o das notas, e para o cadastro na materia
     float nota_alunos2;
     float nota_alunos3;
@@ -34,7 +34,7 @@ struct aluno{ // arquivos das TURMAS;
 struct materias{
 
     int id_materia;
-    char nome_materia[28];
+    char nome_materia[15];
 };
 
 void visualizaTeste();
@@ -273,6 +273,6 @@ void noname(){
         }
         leitura.read((char*)(&m),sizeof(materias));
     }
-
+    leitura.close();
     cout << "================================================="<<endl;
 }
