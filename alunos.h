@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iomanip>
 #include <locale.h>
+
 using namespace std;
 
 void realizar_matricula(int usuario_ID);
@@ -16,6 +17,7 @@ void cadastrar_na_materia(int id_aluno,char name[15]);
 int id_na_materia(char nome_materia[28]);
 
 void home_aluno(int usuario_ID){
+    setlocale(LC_ALL,"portuguese");
     int opcao;
 
     while(opcao !=0 ){
@@ -27,7 +29,7 @@ void home_aluno(int usuario_ID){
         cout << "1-Realizar Matricula" << endl;
         cout << "2-Ver Nota" << endl;
         cout << "0-Deslogar" << endl;
-        cout << "Opcao: ";
+        cout << "Opção: ";
         cin >> opcao;
 
         switch(opcao){
@@ -156,7 +158,7 @@ void visualizarNotas(int usuario_ID){
     archive.open(nomeMateria,ios::in);
 
     if(archive.fail())
-    cout <<"Algum problema com o arquivos renicie o programa e tente novamente"<<endl;
+    cout <<"Algum problema com o arquivos reinicie o programa e tente novamente"<<endl;
 
     archive.read((char*)(&materiaAtual),sizeof(aluno));
     while(archive && !archive.eof()){
@@ -166,7 +168,7 @@ void visualizarNotas(int usuario_ID){
                  << setw(10) << materiaAtual.nota_alunos2
                  << setw(10) << materiaAtual.nota_alunos3 <<endl;
 
-                 cout<<"\nMEDIA: "<<materiaAtual.media<<endl;
+                 cout<<"\nMÉDIA: "<<materiaAtual.media<<endl;
 
         }
         archive.read((char*)(&materiaAtual),sizeof(aluno));

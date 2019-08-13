@@ -59,6 +59,7 @@ void criar_materia(int ID_ativo){
 }
 
 void home_prof(int ID_ativo){
+    setlocale(LC_ALL,"portuguese");
     int opcao;
 
     while (opcao != 0){
@@ -67,7 +68,7 @@ void home_prof(int ID_ativo){
         cout << "3-Media" << endl;
         cout << "4-Visualizar Turma" << endl;
         cout << "0-Deslogar" << endl;
-        cout <<"Op√ß√£o: ";
+        cout <<"OpÁ„o: ";
         cin >> opcao;
 
         switch(opcao){
@@ -94,6 +95,7 @@ void home_prof(int ID_ativo){
 }
 
 int id_para_materia(){
+    setlocale(LC_ALL,"portuguese");
     int total=0;
     struct materias m;
     fstream leitura(lista_materias, ios::in);
@@ -114,7 +116,7 @@ int id_para_materia(){
 void selecioMateria(char nameMateria[40]){  //quando for chamar essa fun√ßao o parametro tem q ser zerado
     strcat(nameMateria,".//Materias//");
     char nameAux[15];
-    cout << "Nome da Materia a Selecionar:"<<endl;
+    cout << "Nome da MatÈria a Selecionar:"<<endl;
     cin >> nameAux;
     strcat(nameAux,".txt");
     strcat(nameMateria,nameAux);
@@ -143,7 +145,7 @@ void atribuirNotas(){
     archive.seekg((idDoAlunoNaDisciplina)*sizeof(aluno));
     archive.read((char*)(&alunoX),sizeof(aluno));
 
-    cout << "Qual avalia√ß√£o deseja atribuir a nota ?(1,2,3)"<<endl;
+    cout << "Qual avaliaÁ„o deseja atribuir a nota ?(1,2,3)"<<endl;
     cin >> nAvaliacao;
     if(nAvaliacao==1){
         cout << "Digite a nota:" ;
@@ -155,7 +157,7 @@ void atribuirNotas(){
         cout << "Digite a nota:" ;
         cin >>alunoX.nota_alunos3;
     }else{
-        cout << "op√ß√£o Invalida!"<<endl;
+        cout << "opÁ„o Invalida!"<<endl;
     }
 
     archive.seekp((idDoAlunoNaDisciplina)*sizeof(aluno));

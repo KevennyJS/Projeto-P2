@@ -7,7 +7,6 @@
 #include <fstream>
 #include <iomanip>
 #include <locale.h>
-
 #define limpar_tela system("CLS");
 using namespace std;
 char* lista_materias = (char*)".\\Materias\\MATERIAS.txt";
@@ -24,7 +23,7 @@ struct User{
 };
 struct aluno{ // arquivos das TURMAS;
 
-    int id_disciplina; // essa aqui e a posiÃ§Ã£o do aluno na materia
+    int id_disciplina; // essa aqui e a posição do aluno na materia
     int id_usuario;    // esse aqui recebe o id la do Bd
     float nota_alunos1;//distribui as 3 notas pra ficar mais facil o acesso para media, e para exibiï¿½ï¿½o das notas, e para o cadastro na materia
     float nota_alunos2;
@@ -44,6 +43,7 @@ void atualizarInfo();
 void noname();
 
 void home_adm(){
+    setlocale(LC_ALL,"portuguese");
     int opcao;
 
     while(opcao !=0 ){
@@ -57,7 +57,7 @@ void home_adm(){
         cout << "4-Atualizar Cadastrados" << endl;
         cout << "5-Visualizar Materias" << endl;
         cout << "0-Deslogar" << endl;
-        cout << "OpÃ§Ã£o: ";
+        cout << "Opção: ";
         cin >> opcao;
 
         switch(opcao){
@@ -163,7 +163,7 @@ void cadastrar(){
     cin  >>newUser.nome;
     cin.ignore();
     again:
-    cout <<"Tipo de conta P(professor) <-> A(Aluno) <-> M(Administrador)"<<endl;
+    cout <<"P(professor) <-> A(Aluno) <-> M(Administrador): ";
     cin >> aux;
     if (aux == 'P' || aux == 'A' || aux == 'M') newUser.token = aux;
     else {cout << "Tipo de usuario Desconhecido, Tente novamente!" << endl;goto again;}
@@ -211,6 +211,7 @@ void visualizaTeste(){
     archive.close();
 }
 void atualizarInfo(){
+    setlocale(LC_ALL,"portuguese");
     short int opcao;
     fstream archive;
     struct User usuario;
@@ -225,10 +226,11 @@ void atualizarInfo(){
     archive.seekg((usuario.id-1)*sizeof(User));
     archive.read((char*)(&usuario),sizeof(User));
 
-    cout << "-- ATUALIZAR INFORMAES --"<<endl;
+    cout << "-- ATUALIZAR INFORMAÇÕES --"<<endl;
     cout << "[1]- Login\n"
          << "[2]- Senha\n"
-         << "[3]- Nome" <<endl;
+         << "[3]- Nome \n"
+         <<"Opção: "<<endl;
     cin >>opcao;
 
     switch (opcao)
@@ -246,7 +248,7 @@ void atualizarInfo(){
         cin >>usuario.nome;
         break;
     default:
-        cout <<"Opo nÃ£o existe!!!"<<endl;
+        cout <<"Opção não existe!!!"<<endl;
     }
 
     archive.seekp((usuario.id-1)*sizeof(User));

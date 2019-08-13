@@ -10,7 +10,7 @@ using namespace std;
 void cadastro_para_aluno();
 
 int main(){
-    setlocale(LC_ALL, "Portuguese");
+    setlocale(LC_ALL,"portuguese");
     int verifica=0,existe=0,opcao=1;
     char login[15], senha[15];
     char professor='p';
@@ -24,7 +24,7 @@ int main(){
         cout << "1- Login" <<endl;
         cout << "2- Registrar-se" << endl;
         cout << "0- Sair" <<endl;
-        cout <<"Opcao: ";
+        cout <<"Opção:";
         cin >>opcao;
         limpar_tela;
 
@@ -77,7 +77,7 @@ int main(){
             leitura.close();
 
             if(existe==0){
-                cout << "Usuario Nï¿½o Existe";
+                cout << "Usuario Não Existe";
                 Sleep(2000);
                 existe=0;
             }
