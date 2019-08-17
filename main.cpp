@@ -14,6 +14,7 @@ int main(){
     int verifica=0,existe=0,opcao=1;
     char login[15], senha[15];
     char professor='p';
+    ajuda();
 
     User usuario;
     ifstream leitura;

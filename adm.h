@@ -278,3 +278,30 @@ void noname(){
     leitura.close();
     cout << "================================================="<<endl;
 }
+void ajuda(){
+    fstream archive;
+    archive.open("Ajuda.txt",ios::out|ios::trunc);
+
+    if(archive.fail())
+        cout << "Algum problema com os arquivos , feche e abra novamente"<<endl;
+
+    archive << "***************AJUDA*****************"<<"\n"
+    <<"Como Utilizar:\n"
+    <<"***********************************************************************************************************\n"
+    <<"\n"<<"Como Aluno:\n1º-O aluno começa se cadastrando no menu inicial\n"
+    <<"2º-Logando,temos as seguintes opções com suas respectivas funcionalidades:"<<"\n"
+    <<"->(1)Realizar Matricula:Esta função realiza a matricula do aluno na materia X\n->(2)Ver notas...\n"
+    <<"***********************************************************************************************************\n"
+    <<"Como Professor:\n1º-Um administrador tem que cadastrar o professor\n2º-Logando,temos as seguintes opções com suas respectivas funcionalidades:\n"
+    <<"->(1) Criar Turma \n->(2)Atribuir Nota \n->(3)Media:Calcula dos alunos de uma turma \n->(4)Visualizar Turma:visualiza informações sobre uma turma\n"
+    <<"***********************************************************************************************************\n"
+    <<"Como Administrador:\n1º-O administrador recebe a primeira conta do sistema diretamente dos desenvolvedores\n"
+    <<"2º-O Administrador pode cadastrar qualquer tipo de conta\n"
+    <<"3º-Caso as base de dados estejam com problema o adminstrador pode resetalas usando a função (1)\n"
+    <<"4º-O administrador tambem pode atualizar dados de qualquer usuario\n"
+    <<"***********************************************************************************************************\n"
+    <<"***********************************************************************************************************\n"
+    <<"Contato:(79)00000000"<<endl;
+
+    archive.close();
+}
