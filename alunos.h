@@ -41,6 +41,7 @@ void home_aluno(int usuario_ID){
                 visualizarNotas(usuario_ID);
                 break;
             case 3:
+                msg(1,1);
                 break;
         }
     }
@@ -87,7 +88,7 @@ void cadastrar_na_materia(int id_aluno,char name[15]){
 
     id_materia = id_na_materia(nome_materia);
 
-    aluno add = {id_materia,id_aluno,0.0,0.0,0.0,0.0};
+    aluno add = {id_materia,id_aluno,0.0,0.0,0.0,0.0,0};
 
     arquivoS.seekp((id_materia)*sizeof(aluno));
     arquivoS.write((const char *)(&add),sizeof(aluno));

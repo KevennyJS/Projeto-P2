@@ -11,6 +11,7 @@
 using namespace std;
 char* lista_materias = (char*)".\\Materias\\MATERIAS.txt";
 char* nameArchive =(char*)"Bd.txt";
+int msg(int opcao,int cont);
 
 struct User{
 
@@ -29,6 +30,7 @@ struct aluno{ // arquivos das TURMAS;
     float nota_alunos2;
     float nota_alunos3;
     float media;
+    int faltas;
 } ;
 struct materias{
 
@@ -64,7 +66,7 @@ void home_adm(){
             case 1:
                 inicializar();
                 limpar_tela;
-                cout << "Zerando...";
+                msg(2,1);
                 Sleep(2000);
                 break;
             case 2:
@@ -88,8 +90,7 @@ void home_adm(){
                 break;
         }
         limpar_tela;
-        if(opcao == 0) cout << "Saindo..." << endl;
-        Sleep(2000);
+        if(opcao == 0) msg(1,1);
     }
 }
 
@@ -304,4 +305,19 @@ void ajuda(){
     <<"Contato:(79)00000000"<<endl;
 
     archive.close();
+}
+
+int msg(int opcao,int cont){
+    if(opcao==1){
+        cout<<"Saindo";
+    }
+    else if(opcao==2){
+        cout<<"Zerando";
+    }
+    if(cont <= 3){
+        Sleep(750);
+        cout<<".";
+        msg(0,cont+1);
+    }
+    return 0;
 }

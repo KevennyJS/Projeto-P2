@@ -92,6 +92,9 @@ int main(){
         else if (opcao==2){
             cadastro_para_aluno();
         }
+        else if (opcao==0){
+            msg(1,1);
+        }
     }
 }
 

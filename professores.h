@@ -40,7 +40,7 @@ void criar_materia(int ID_ativo){
     strcat(nome,".txt");
     arquivo.open(nome, ios::out);
 
-    aluno UVazio = {0, 0, 0.0, 0.0, 0.0,0.0};
+    aluno UVazio = {0, 0, 0.0, 0.0, 0.0,0.0,0};
 
     for(int i = 0; i < 50; i++){
         arquivo.write((const char *)(&UVazio),sizeof(aluno));
@@ -48,7 +48,7 @@ void criar_materia(int ID_ativo){
     arquivo.close();
     fstream arquivoS(nome, ios::in | ios::out | ios::ate);
 
-    aluno prof = {1, ID_ativo, 0.0, 0.0, 0.0,0.0};
+    aluno prof = {1, ID_ativo, 0.0, 0.0, 0.0,0.0,0};
     arquivoS.seekp((1)*sizeof(aluno));
     arquivoS.write((const char *)(&prof),sizeof(aluno));
     arquivoS.close();
@@ -87,8 +87,8 @@ void home_prof(int ID_ativo){
             case 4:
                 visualizarTurma();
                 break;
-            case 5:
-
+            case 0;
+                msg(1,1);
                 break;
         }
     }
