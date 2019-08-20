@@ -40,15 +40,13 @@ void home_aluno(int usuario_ID){
             case 2:
                 visualizarNotas(usuario_ID);
                 break;
-            case 3:
+            case 0:
+                limpar_tela;
                 msg(1,1);
                 break;
         }
     }
         limpar_tela;
-        if(opcao == 0) cout << "Saindo..." << endl;
-        Sleep(2000);
-
 }
 void realizar_matricula(int usuario_ID){
     int id_selecionado = exibir_materias();
