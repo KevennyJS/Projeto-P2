@@ -163,7 +163,7 @@ void visualizarNotas(int usuario_ID){
     while(archive && !archive.eof()){
         if(materiaAtual.id_usuario == usuario_ID){
             cout << setw(10) << "Nota 1"<< setw(10) << "Nota 2"<< setw(10) << "Nota 3"<<"\n"
-                 << setw(10) <<setprecision(1)<<setiosflags(ios::showpoint) << materiaAtual.nota_alunos1
+                 << setw(10) <<setprecision(2)<< materiaAtual.nota_alunos1
                  << setw(10) << materiaAtual.nota_alunos2
                  << setw(10) << materiaAtual.nota_alunos3 <<endl;
 

@@ -149,7 +149,7 @@ void atribuirNotas(){
     cin  >> idDoAlunoNaDisciplina;
     }while(idDoAlunoNaDisciplina==0);
 
-    float nota,nAvaliacao;
+    float nota=0,nAvaliacao=0;
     aluno alunoX;
     fstream archive;
     archive.open(nameMateria,ios::ate|ios::in|ios::out);
