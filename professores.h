@@ -20,7 +20,8 @@ void chamada();
 int exibir_para_chamada();
 void fazerchamada(char name[15]);
 
-void criar_materia(int ID_ativo){
+void criar_materia(int ID_ativo)
+{
     int i;
     materias m;
     fflush(stdin);
@@ -45,7 +46,8 @@ void criar_materia(int ID_ativo){
 
     aluno UVazio = {0, 0, 0.0, 0.0, 0.0,0.0,0};
 
-    for(int i = 0; i < 50; i++){
+    for(int i = 0; i < 50; i++)
+    {
         arquivo.write((const char *)(&UVazio),sizeof(aluno));
     }
     arquivo.close();
@@ -61,11 +63,13 @@ void criar_materia(int ID_ativo){
     Sleep(1500);
 }
 
-void home_prof(int ID_ativo){
+void home_prof(int ID_ativo)
+{
     setlocale(LC_ALL,"portuguese");
     int opcao;
 
-    while (opcao != 0){
+    while (opcao != 0)
+    {
         cout << "1- Criar Turma" << endl;
         cout << "2-Atribuir Nota" << endl;
         cout << "3-Media" << endl;
@@ -75,53 +79,58 @@ void home_prof(int ID_ativo){
         cout <<"Opção: ";
         cin >> opcao;
 
-        switch(opcao){
-            case 0:
-                limpar_tela;
-                msg(1,1);
-                limpar_tela;
-                break;
-            case 1:
-                limpar_tela;
-                criar_materia(ID_ativo);
-                limpar_tela;
-                break;
-            case 2:
-                limpar_tela;
-                atribuirNotas();
-                limpar_tela;
-                break;
-            case 3:
-                limpar_tela;
-                CalculaMediaTurma();
-                limpar_tela;
-                break;
-            case 4:
-                limpar_tela;
-                visualizarTurma();
-                limpar_tela;
-                break;
-            case 5:
-                limpar_tela;
-                chamada();
-                limpar_tela;
-                break;
+        switch(opcao)
+        {
+        case 0:
+            limpar_tela;
+            msg(1,1);
+            limpar_tela;
+            break;
+        case 1:
+            limpar_tela;
+            criar_materia(ID_ativo);
+            limpar_tela;
+            break;
+        case 2:
+            limpar_tela;
+            atribuirNotas();
+            limpar_tela;
+            break;
+        case 3:
+            limpar_tela;
+            CalculaMediaTurma();
+            limpar_tela;
+            break;
+        case 4:
+            limpar_tela;
+            visualizarTurma();
+            limpar_tela;
+            break;
+        case 5:
+            limpar_tela;
+            chamada();
+            limpar_tela;
+            break;
         }
     }
 }
 
-int id_para_materia(){
+int id_para_materia()
+{
     setlocale(LC_ALL,"portuguese");
     int total=0;
     struct materias m;
     fstream leitura(lista_materias, ios::in);
 
-    if(leitura.fail()){
+    if(leitura.fail())
+    {
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
 
-    while(leitura &&! leitura.eof()){
-        if(m.id_materia != 0 && m.id_materia <101){
+    while(leitura &&! leitura.eof())
+    {
+        if(m.id_materia != 0 && m.id_materia <101)
+        {
             total=total+1;
         }
         leitura.read((char*)(&m),sizeof(materias));
@@ -129,7 +138,8 @@ int id_para_materia(){
     leitura.close();
     return total+1;
 }
-void selecioMateria(char nameMateria[40]){  //quando for chamar essa funÃ§ao o parametro tem q ser zerado
+void selecioMateria(char nameMateria[40])   //quando for chamar essa funÃ§ao o parametro tem q ser zerado
+{
     strcat(nameMateria,".//Materias//");
     char nameAux[15];
     cout << "Nome da Matéria a Selecionar:"<<endl;
@@ -139,15 +149,18 @@ void selecioMateria(char nameMateria[40]){  //quando for chamar essa funÃ§ao o p
 }
 
 
-void atribuirNotas(){
+void atribuirNotas()
+{
     int idDoAlunoNaDisciplina;
     char nameMateria[40]="";
     selecioMateria(nameMateria);
 
-    do{
-    cout << "Digite o id do aluno na turma"<<endl;
-    cin  >> idDoAlunoNaDisciplina;
-    }while(idDoAlunoNaDisciplina==0);
+    do
+    {
+        cout << "Digite o id do aluno na turma"<<endl;
+        cin  >> idDoAlunoNaDisciplina;
+    }
+    while(idDoAlunoNaDisciplina==0);
 
     float nota=0,nAvaliacao=0;
     aluno alunoX;
@@ -162,16 +175,44 @@ void atribuirNotas(){
 
     cout << "Qual avaliação deseja atribuir a nota ?(1,2,3)"<<endl;
     cin >> nAvaliacao;
-    if(nAvaliacao==1){
+
+    if(nAvaliacao==1)
+    {
+
         cout << "Digite a nota:" ;
-        cin >>alunoX.nota_alunos1;
-    }else if(nAvaliacao==2){
+
+        do
+        {
+            cin >>alunoX.nota_alunos1;
+            if(alunoX.nota_alunos1 > 10)
+            cout << "Nota acima do permitido"<<endl;
+        }
+        while(alunoX.nota_alunos1>10);
+    }
+    else if(nAvaliacao==2)
+    {
         cout << "Digite a nota:" ;
-        cin >>alunoX.nota_alunos2 ;
-    }else if(nAvaliacao==3){
+        do
+        {
+            cin >>alunoX.nota_alunos2;
+            if(alunoX.nota_alunos2 > 10)
+                cout << "Nota acima do permitido"<<endl;
+        }
+        while(alunoX.nota_alunos2>10);
+        }
+    else if(nAvaliacao==3)
+    {
         cout << "Digite a nota:" ;
-        cin >>alunoX.nota_alunos3;
-    }else{
+        do
+        {
+            cin >>alunoX.nota_alunos3;
+            if(alunoX.nota_alunos3 > 10)
+            cout << "Nota acima do permitido"<<endl;
+        }
+        while(alunoX.nota_alunos3 > 10);
+    }
+    else
+    {
         cout << "opção Invalida!"<<endl;
     }
 
@@ -180,19 +221,24 @@ void atribuirNotas(){
 
     archive.close();
 }
-void chamada(){
+void chamada()
+{
     int id_selecionado = exibir_para_chamada();
     int confirm=0;
     struct materias m;
     fstream leitura(lista_materias, ios::in);
 
-    if(leitura.fail()){
+    if(leitura.fail())
+    {
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
 
-    while(leitura &&! leitura.eof()){
-        if(m.id_materia != 0 && m.id_materia <101){
-            if(m.id_materia==id_selecionado){
+    while(leitura &&! leitura.eof())
+    {
+        if(m.id_materia != 0 && m.id_materia <101)
+        {
+            if(m.id_materia==id_selecionado)
+            {
                 fazerchamada(m.nome_materia);
                 confirm=1;
                 break;
@@ -200,13 +246,15 @@ void chamada(){
         }
         leitura.read((char*)(&m),sizeof(materias));
     }
-    if(confirm==0){
+    if(confirm==0)
+    {
         cout << "Materia inexistente" << endl;
     }
-leitura.close();
+    leitura.close();
 }
 
-void fazerchamada(char name[15]){
+void fazerchamada(char name[15])
+{
     int opcao;
     int cont_ids=2;
     int falta;
@@ -218,23 +266,29 @@ void fazerchamada(char name[15]){
     fstream arquivoS;
     arquivoS.open(nome_materia, ios::in | ios:: out | ios::ate);
 
-    while(arquivoS &&! arquivoS.eof()){
+    while(arquivoS &&! arquivoS.eof())
+    {
         arquivoS.seekg((cont_ids-1)*sizeof(aluno));
         arquivoS.read((char*)(&a), sizeof(aluno));
 
-        if(cont_ids > 0 && cont_ids < 50 && a.id_usuario != 0){
+        if(cont_ids > 0 && cont_ids < 50 && a.id_usuario != 0)
+        {
 
-        cout<< "Aluno: " << a.id_usuario << endl <<endl;
+            cout<< "Aluno: " << a.id_usuario << endl <<endl;
+            arquivoS.read((char*)(&a),sizeof(aluno));
+            cout << "1- Presente\n2- 2 Faltas\n3- 4 Faltas\nOpção: "<<endl;
+            cin >> opcao;
+            if(opcao == 1)
+                a.faltas = a.faltas;
+            else if(opcao == 2)
+                a.faltas = a.faltas + 2;
+            else if(opcao == 3)
+                a.faltas = a.faltas + 4;
+
+            arquivoS.seekp((cont_ids -1) * sizeof(aluno));
+            arquivoS.write((const char *) (&a), sizeof(aluno));
+        }
         arquivoS.read((char*)(&a),sizeof(aluno));
-        cout << "1- Presente\n2- 2 Faltas\n3- 4 Faltas\nOpção: "<<endl;
-        cin >> opcao;
-        if(opcao == 1) a.faltas = a.faltas;
-        else if(opcao == 2) a.faltas = a.faltas + 2;
-        else if(opcao == 3) a.faltas = a.faltas + 4;
-
-        arquivoS.seekp((cont_ids -1) * sizeof(aluno));
-        arquivoS.write((const char *) (&a), sizeof(aluno));
-        }arquivoS.read((char*)(&a),sizeof(aluno));
 
         cont_ids++;
     }
@@ -243,10 +297,12 @@ void fazerchamada(char name[15]){
     Sleep(1000);
 }
 
-void nomedoaluno(int id_bd){
+void nomedoaluno(int id_bd)
+{
 }
 
-void CalculaMediaTurma(){
+void CalculaMediaTurma()
+{
     char nomeDaDiciplina[40]="";
     selecioMateria(nomeDaDiciplina);
 
@@ -260,9 +316,10 @@ void CalculaMediaTurma(){
         cout << "ALGUM PROBLEMA COM O ARQUIVO!!! FECHE O PROGRAMA " <<endl;
 
     p = new float [3];
-    for (int i=1;i<51;i++){
-    archiveTurma.seekg((i)*sizeof(aluno));
-    archiveTurma.read((char*)(&alunoX),sizeof(aluno));
+    for (int i=1; i<51; i++)
+    {
+        archiveTurma.seekg((i)*sizeof(aluno));
+        archiveTurma.read((char*)(&alunoX),sizeof(aluno));
 
         alunoX.media=0;
 
@@ -276,14 +333,15 @@ void CalculaMediaTurma(){
 
         alunoX.media = alunoX.media/3;
 
-    archiveTurma.seekp((i)*sizeof(aluno));
-    archiveTurma.write((const char*)(&alunoX),sizeof(aluno));
+        archiveTurma.seekp((i)*sizeof(aluno));
+        archiveTurma.write((const char*)(&alunoX),sizeof(aluno));
 
     }
 
-        archiveTurma.close();
+    archiveTurma.close();
 }
-void visualizarTurma(){
+void visualizarTurma()
+{
     struct aluno materiaAtual;
 
     char nomeMateria[40]="";
@@ -293,18 +351,20 @@ void visualizarTurma(){
     archive.open(nomeMateria,ios::in);
 
     if(archive.fail())
-    cout <<"Algum problema com o arquivos renicie o programa e tente novamente"<<endl;
+        cout <<"Algum problema com o arquivos renicie o programa e tente novamente"<<endl;
 
     archive.read((char*)(&materiaAtual),sizeof(aluno));
-    while(archive && !archive.eof()){
-        if(materiaAtual.id_disciplina!=0 && materiaAtual.id_disciplina!=1){
+    while(archive && !archive.eof())
+    {
+        if(materiaAtual.id_disciplina!=0 && materiaAtual.id_disciplina!=1)
+        {
             cout <<"id_materia : " <<materiaAtual.id_disciplina<<"///"<<" Id do aluno: "<<materiaAtual.id_usuario<<endl;
             cout << setw(10) << "Nota 1"<< setw(10) << "Nota 2"<< setw(10) << "Nota 3"<< setw(10) << "Faltas"<<"\n"
-                 << setw(10) <<setprecision(1)<<setiosflags(ios::showpoint) << materiaAtual.nota_alunos1
+                 << setw(10) <<setprecision(2)<< materiaAtual.nota_alunos1
                  << setw(10) << materiaAtual.nota_alunos2
                  << setw(10) << materiaAtual.nota_alunos3
                  << setw(10) <<materiaAtual.faltas<<endl;
-                cout<<"\nMEDIA: "<<materiaAtual.media<<endl;
+            cout<<"\nMEDIA: "<<materiaAtual.media<<endl;
         }
         archive.read((char*)(&materiaAtual),sizeof(aluno));
     }
@@ -312,12 +372,14 @@ void visualizarTurma(){
     archive.close();
 
 }
-int exibir_para_chamada(){
+int exibir_para_chamada()
+{
     int id_selecionado;
     struct materias m;
     fstream leitura(lista_materias, ios::in);
 
-    if(leitura.fail()){
+    if(leitura.fail())
+    {
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
 
@@ -325,10 +387,12 @@ int exibir_para_chamada(){
     cout << "================Lista De Materias================" << endl;
     cout << "=================================================" << endl;
 
-    while(leitura &&! leitura.eof()){
-        if(m.id_materia > 0 && m.id_materia <100 && m.nome_materia != ""){
+    while(leitura &&! leitura.eof())
+    {
+        if(m.id_materia > 0 && m.id_materia <100 && m.nome_materia != "")
+        {
             cout << setw(3) << m.id_materia << setw(2) << "|"
-            << setw(15) << m.nome_materia << endl;
+                 << setw(15) << m.nome_materia << endl;
         }
         leitura.read((char*)(&m),sizeof(materias));
     }
