@@ -112,8 +112,15 @@ void cadastro_para_aluno(){
     cout << "======================" << endl;
     cout << "==Registro De Alunos==" << endl;
     cout << "======================" << endl;
+
+    do{
     cout <<"Digite o login: ";
     cin  >>newUser.login;
+    if(VerificaUsuarioExistenteCadastro(newUser.login)==1){
+        cout <<"Usuario já existe,tente outro!"<<endl;
+    }
+    }while(VerificaUsuarioExistenteCadastro(newUser.login)==1);
+
     cout << "Digite a Senha: ";
     cin  >>newUser.senha;
     cout << "Digite Seu Nome: ";

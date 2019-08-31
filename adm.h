@@ -40,6 +40,7 @@ struct materias{
 
 void visualizaTeste();
 void inicializar();
+int VerificaUsuarioExistenteCadastro(char loginDesejado[]);
 void cadastrar();
 void atualizarInfo();
 void noname();
@@ -155,9 +156,14 @@ void cadastrar(){
 
     if(archive.fail())
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
-
+    do{
     cout <<"Digite o login: ";
     cin  >>newUser.login;
+    if(VerificaUsuarioExistenteCadastro(newUser.login)==1){
+        cout <<"Usuario já existe,tente outro!"<<endl;
+    }
+    }while(VerificaUsuarioExistenteCadastro(newUser.login)==1);
+
     cout << "Digite a Senha: ";
     cin  >>newUser.senha;
     cout << "Digite Seu Nome: ";
@@ -320,4 +326,23 @@ int msg(int opcao,int cont){
         msg(0,cont+1);
     }
     return 0;
+}
+
+int VerificaUsuarioExistenteCadastro(char loginDesejado[]){
+    fstream archive;
+    archive.open("Bd.txt",ios::in);
+
+    User instanciaVerifica;
+
+    if(archive.fail())
+        cout << "Algum Problema com o arquivo!"<<endl;
+
+    while(!archive.eof()){
+        archive.read((char*)(&instanciaVerifica),sizeof(User));
+        if(strcmp(loginDesejado,instanciaVerifica.login)==0)
+            return 1;
+    }
+archive.close();
+    return 0;
+
 }
