@@ -1,0 +1,26 @@
+***************AJUDA*****************
+Como Utilizar:
+***********************************************************************************************************
+
+Como Aluno:
+1º-O aluno começa se cadastrando no menu inicial
+2º-Logando,temos as seguintes opções com suas respectivas funcionalidades:
+->(1)Realizar Matricula:Esta função realiza a matricula do aluno na materia X
+->(2)Ver notas...
+***********************************************************************************************************
+Como Professor:
+1º-Um administrador tem que cadastrar o professor
+2º-Logando,temos as seguintes opções com suas respectivas funcionalidades:
+->(1) Criar Turma 
+->(2)Atribuir Nota 
+->(3)Media:Calcula dos alunos de uma turma 
+->(4)Visualizar Turma:visualiza informações sobre uma turma
+***********************************************************************************************************
+Como Administrador:
+1º-O administrador recebe a primeira conta do sistema diretamente dos desenvolvedores
+2º-O Administrador pode cadastrar qualquer tipo de conta
+3º-Caso as base de dados estejam com problema o adminstrador pode resetalas usando a função (1)
+4º-O administrador tambem pode atualizar dados de qualquer usuario
+***********************************************************************************************************
+***********************************************************************************************************
+Contato:(79)00000000
