@@ -21,7 +21,8 @@ using namespace std;
 void cadastro_para_aluno();
 
 int main(){
-    //inicializar();
+    SigaaLite();
+    //inicializar(); //usado quando a base de dados e quebrada
     setlocale(LC_ALL,"portuguese");
     int verifica=0,existe=0,opcao=1;
     char login[15], senha[15];
@@ -32,7 +33,7 @@ int main(){
     ifstream leitura;
 
     while(opcao!=0){
-        limpar_tela;                                                 // EDITANDOOOOOOOOOOOOOOOOOOOOO
+        limpar_tela;
 
         logoPrincipal();
         gotoxy(30,9);
@@ -78,7 +79,8 @@ int main(){
                         else if(usuario.token == 'P' || usuario.token == 'p')
                         {
                             limpar_tela;
-
+                             logoPrincipal();
+                             gotoxy(17,8);
                             cout << setw(15) << "BEM VINDO " << usuario.nome << endl;
                             leitura.close();
                             Sleep(2000);
@@ -88,7 +90,8 @@ int main(){
                         else if(usuario.token == 'A' || usuario.token == 'a')
                         {
                             limpar_tela;
-
+                            logoPrincipal();
+                             gotoxy(17,8);
                             cout << setw(15) << "BEM VINDO " << usuario.nome << endl;
                             leitura.close();
                             Sleep(2000);
@@ -105,12 +108,14 @@ int main(){
             leitura.close();
 
             if(existe==0){
+                    gotoxy(25,22);
                 cout << "USUARIO NÃO EXISTE";
                 Sleep(2000);
                 existe=0;
             }
 
             else if(verifica==0){
+                     gotoxy(25,22);
                 cout <<"USUARIO OU SENHA INCORRETO";
                 Sleep(2000);
                 verifica=0;
@@ -120,6 +125,8 @@ int main(){
             cadastro_para_aluno();
         }
         else if (opcao==0){
+                logoPrincipal();
+            gotoxy(17,5);
             msg(1,1);
             boneco();
         }
@@ -137,35 +144,40 @@ void cadastro_para_aluno(){
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
 
- logoPrincipal();
-    criaMenu(2,30,15,5, COR_DETALHE,COR_LETRA);
-    gotoxy(17,5);
+        logoPrincipal();
+       criaMenu(1,20,32,5,BLACK,WHITE);
+       criaMenu(1,55,15,12,BLACK,WHITE);
+       //criaMenu(2,55,15,10, COR_DETALHE, COR_LETRA);
+
+    gotoxy(31,5);
     cout << "------------------------";
-    gotoxy(17,6);
+    gotoxy(31,6);
     cout << "---REGISTRO DE ALUNOS---";
-    gotoxy(17,7);
+    gotoxy(31,7);
     cout << "------------------------";
-    criaMenu(8,30, 15,10, COR_DETALHE, COR_LETRA);
+    criaMenu(2,55,15,10, COR_DETALHE, COR_LETRA);
 
     do{
-            gotoxy(17,10);
-    cout <<"Digite o login: ";
-            gotoxy(32,10);
-    cin  >>newUser.login;
             gotoxy(17,11);
+    cout <<"Digite o login: ";
+            gotoxy(32,11);
+    cin  >>newUser.login;
+            gotoxy(17,12);
     if(VerificaUsuarioExistenteCadastro(newUser.login)==1){
         cout <<"Usuario já existe,tente outro!"<<endl;
     }
     }while(VerificaUsuarioExistenteCadastro(newUser.login)==1);
-
-    cout<<"----------------------";
-     gotoxy(17,12);
+      criaMenu(2,55, 15,14, COR_DETALHE, COR_LETRA);
+    //cout<<"----------------------";
+     gotoxy(17,15);
     cout << "DIGITE A SENHA...: ";
-     gotoxy(32,12);
+     gotoxy(35,15);
     cin  >>newUser.senha;
-     gotoxy(17,13);
+     criaMenu(1,55,15,17,BLACK,WHITE);
+    criaMenu(2,55, 15,18, COR_DETALHE, COR_LETRA);
+     gotoxy(17,19);
     cout << "DIGITE SEU NOME..:  ";
-     gotoxy(35,13);
+     gotoxy(35,19);
     cin.ignore();
     cin.getline(newUser.nome,40);
     newUser.token = 'A';

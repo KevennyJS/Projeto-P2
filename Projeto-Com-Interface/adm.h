@@ -24,6 +24,7 @@ char* lista_materias = (char*)".\\Materias\\MATERIAS.txt";
 char* nameArchive =(char*)"Bd.txt";
 int msg(int opcao,int cont);
 void boneco();
+void carregando();
 struct User{
 
     int id;
@@ -98,12 +99,15 @@ void home_adm(){
                 limpar_tela;
                 cadastrar();
                 limpar_tela;
-                cout << "Usuario Cadastrado!!!";
+                logoPrincipal();
+                gotoxy(17,8);
+                cout << "USUARIO CADASTRADO!!!";
                 Sleep(2000);
                // logoPrincipal();
                 break;
             case 3:
                 visualizaTeste();
+                gotoxy(1,30);
                 getch();
                // logoPrincipal();
                 break;
@@ -191,27 +195,36 @@ void cadastrar(){
     if(archive.fail())
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     logoPrincipal();
-       criaMenu(8,30, 15,10, COR_DETALHE, COR_LETRA);
+       criaMenu(1,55,15,12,BLACK,WHITE);
+       criaMenu(2,55,15,10, COR_DETALHE, COR_LETRA);
+
 
        do{
-            gotoxy(17,10);
-    cout <<"Digite o login: ";
-            gotoxy(35,10);
-    cin  >>newUser.login;
+            gotoxy(22,8);
+       cout<<"****CRIANDO CADASTRO****";
             gotoxy(17,11);
+    cout <<"DIGITE O LOGIN: ";
+            gotoxy(32,11);
+    cin  >>newUser.login;
+            gotoxy(17,12);
     if(VerificaUsuarioExistenteCadastro(newUser.login)==1){
         cout <<"Usuario já existe,tente outro!"<<endl;
     }
     }while(VerificaUsuarioExistenteCadastro(newUser.login)==1);
 
-    cout<<"----------------------";
-     gotoxy(17,12);
+       criaMenu(2,55, 15,14, COR_DETALHE, COR_LETRA);
+
+
+    //cout<<"----------------------";
+     gotoxy(17,15);
     cout << "DIGITE A SENHA...: ";
-     gotoxy(35,12);
+     gotoxy(35,15);
     cin  >>newUser.senha;
-     gotoxy(17,13);
+    criaMenu(1,55,15,17,BLACK,WHITE);
+    criaMenu(2,55, 15,18, COR_DETALHE, COR_LETRA);
+     gotoxy(17,19);
     cout << "DIGITE SEU NOME..:  ";
-     gotoxy(35,13);
+     gotoxy(35,19);
     cin.ignore();
     cin.getline(newUser.nome,40);
     gotoxy(17,23);
@@ -238,35 +251,36 @@ void visualizaTeste(){
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
     logoPrincipal();
-    criaMenu(5,30,15,5, COR_DETALHE,COR_LETRA);
-    gotoxy(17,5);
-    cout << "==================================================";
-    gotoxy(17,6);
-    cout << "===============Lista De Cadastrados===============";
-    gotoxy(17,7);
-    cout << "==================================================";
-     gotoxy(17,8);
+    criaMenu(1,55,15,5,BLACK,WHITE);
+    gotoxy(12,5);
+    cout << "==============================================================";
+    gotoxy(12,6);
+    cout << "======================LISTA DE CADASTRADOS====================";
+    gotoxy(12,7);
+    cout << "==============================================================";
+    criaMenu(5,100,1,10, COR_DETALHE,COR_LETRA);
+    gotoxy(1,8);
     cout << setiosflags(ios::left)
-        << setw(16) << "Nome" << setw(2) << "|"
-        <<setw(16) <<  "Login" << setw(2) << "|"
-        << setw(7) <<  "Senha" << setw(2) << "|"
-        <<setw(3) <<   "Tipo" << endl;
+        << setw(32) << "NOME" << setw(2) << "|"
+        <<setw(32) <<  "LOGIN" << setw(2) << "|"
+        << setw(14) <<  "SENHA" << setw(2) << "|"
+        <<setw(6) <<   "TIPO"<<endl;
 
     archive.read((char*)(&usu),sizeof(User));
-    gotoxy(17,9);
+    gotoxy(1,10);
     while(archive &&! archive.eof()){
         if(usu.id != 0){
                 cout << setiosflags(ios::left)
-                << setw(16) << usu.nome << setw(2) << "|"
-                << setw(16) << usu.login << setw(2) << "|"
-                <<setw(7) << "*****" << setw(2) << "|"
-                << setw(4) << resetiosflags(ios::right) << usu.token<<endl;
+                << setw(32) << usu.nome << setw(2) << "|"
+                << setw(32) << usu.login << setw(2) << "|"
+                <<setw(14) << "*****" << setw(2) << "|"
+                << setw(6) << resetiosflags(ios::right) << usu.token<<endl;
 
         }
         archive.read((char*)(&usu),sizeof(User));
     }
-    gotoxy(17,11);
-    cout << "==================================================";
+    //gotoxy(17,12);
+   // cout << "==================================================";
     archive.close();
 }
 void atualizarInfo(){
@@ -280,8 +294,8 @@ void atualizarInfo(){
         cout <<"ALGUM PROBLEMA COM SEU ARQUIVO BD ,FECHE E TENTE NOVAMENTE!"<<endl;
     }
     gotoxy(17,9);
-    cout<< "Informe o id referente a Atualizao: ";
-    gotoxy(52,9);
+    cout<< "INFORME O ID REFERENTE A ATUALIZACAO: ";
+    gotoxy(54,9);
     cin >> usuario.id;
 
     archive.seekg((usuario.id-1)*sizeof(User));
@@ -326,7 +340,7 @@ void atualizarInfo(){
         cin >>usuario.nome;
         break;
     default:
-        cout <<"Opção não existe!!!"<<endl;
+        cout <<"OPÇÃO NÃO EXISTE!!!"<<endl;
     }
 
     archive.seekp((usuario.id-1)*sizeof(User));
@@ -345,7 +359,7 @@ void noname(){
     gotoxy(17,5);
     cout << "===========================";
     gotoxy(17,6);
-    cout << "  ===Lista De Materias===";
+    cout << "  ===LISTA DE MATERIAS===";
     gotoxy(17,7);
     cout << "===========================";
 
@@ -394,11 +408,11 @@ int msg(int opcao,int cont){
 
 
     if(opcao==1){
-        cout<<"Saindo";
+        cout<<"SAINDO";
         boneco();
     }
     else if(opcao==2){
-        cout<<"Zerando";
+        cout<<"ZERANDO";
     }
     if(cont <= 3){
         Sleep(750);
@@ -415,7 +429,7 @@ int VerificaUsuarioExistenteCadastro(char loginDesejado[]){
     User instanciaVerifica;
 
     if(archive.fail())
-        cout << "Algum Problema com o arquivo!"<<endl;
+        cout << "ALGUM PROBLEMA COM O ARQUIVO!"<<endl;
 
     while(!archive.eof()){
         archive.read((char*)(&instanciaVerifica),sizeof(User));

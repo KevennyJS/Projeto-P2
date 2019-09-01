@@ -94,6 +94,8 @@ void home_prof(int ID_ativo)
         {
         case 0:
             limpar_tela;
+            logoPrincipal();
+            gotoxy(17,5);
             msg(1,1);
             limpar_tela;
             break;
@@ -157,9 +159,13 @@ void selecioMateria(char nameMateria[40])   //quando for chamar essa fun√ßao o p
     strcat(nameMateria,".//Materias//");
     char nameAux[15];
     logoPrincipal();
-    gotoxy(17,10);
-    cout << "Nome da MatÈria a Selecionar: ";
-    gotoxy(46,10);
+    criaMenu(1,55,16,6,BLACK,WHITE);
+    //criaMenu(2,55,15,10, COR_DETALHE, COR_LETRA);
+    //gotoxy(28,8);
+    //cout<<"****ATRIBUINDO NOTAS****";
+    gotoxy(17,7);
+    cout << "NOME DA MATERIA A SELECIONAR: ";
+    gotoxy(46,7);
     cin >> nameAux;
     strcat(nameAux,".txt");
     strcat(nameMateria,nameAux);
@@ -171,11 +177,12 @@ void atribuirNotas()
     char nameMateria[40]="";
     selecioMateria(nameMateria);
 
+    criaMenu(2,55, 15,14, COR_DETALHE, COR_LETRA);
     do
     {
-        gotoxy(17,11);
-        cout << "Digite o id do aluno na turma: ";
-        gotoxy(53,11);
+        gotoxy(17,15);
+        cout << "DIGITE O ID DO ALUNO NA TURMA: ";
+        gotoxy(49,15);
         cin  >> idDoAlunoNaDisciplina;
     }
     while(idDoAlunoNaDisciplina==0);
@@ -185,57 +192,69 @@ void atribuirNotas()
     fstream archive;
     archive.open(nameMateria,ios::ate|ios::in|ios::out);
 
-    if(archive.fail()){
+    if(archive.fail())
+    {
         cout << "ALGUM PROBLEMA COM O ARQUIVO!!! FECHE O PROGRAMA " <<endl;
     }
     archive.seekg((idDoAlunoNaDisciplina+1)*sizeof(aluno));
     archive.read((char*)(&alunoX),sizeof(aluno));
-    gotoxy(17,12);
-    cout << "Qual avaliaÁ„o deseja atribuir a nota ?(1,2,3):";
-    gotoxy(65,12);
+    criaMenu(1,55,15,17,BLACK,WHITE);
+    criaMenu(2,55, 15,18, COR_DETALHE, COR_LETRA);
+    gotoxy(17,19);
+    cout << "QUAL AVALIA«√O DESEJA ATRIBUIR A NOTA ?(1,2,3):";
+    gotoxy(65,19);
     cin >> nAvaliacao;
-     if(nAvaliacao==1)
+    if(nAvaliacao==1)
     {
-         gotoxy(17,13);
-        cout << "Digite a nota:" ;
+        criaMenu(1,55,15,21,BLACK,WHITE);
+        criaMenu(2,55, 15,22, COR_DETALHE, COR_LETRA);
+        gotoxy(17,23);
+        cout << "DIGITE A NOTA:" ;
 
         do
         {
-            gotoxy(30,13);
+            gotoxy(32,23);
             cin >>alunoX.nota_alunos1;
-            if(alunoX.nota_alunos1 < 10){
-                gotoxy(30,13);
-            cout << "Nota acima do permitido"<<endl;
+            if(alunoX.nota_alunos1 > 10)
+            {
+                gotoxy(30,26);
+                cout << "Nota acima do permitido"<<endl;
             }
         }
         while(alunoX.nota_alunos1>10);
     }
     else if(nAvaliacao==2)
     {
-        gotoxy(17,13);
-        cout << "Digite a nota: " ;
+        criaMenu(1,55,15,21,BLACK,WHITE);
+        criaMenu(2,55, 15,22, COR_DETALHE, COR_LETRA);
+        gotoxy(17,23);
+        cout << "DIGITE A NOTA: " ;
         do
         {
-            gotoxy(30,13);
+            gotoxy(32,23);
             cin >>alunoX.nota_alunos2;
-            if(alunoX.nota_alunos2 < 10){
-                gotoxy(30,14);
+            if(alunoX.nota_alunos2 > 10)
+            {
+                gotoxy(30,26);
                 cout << "Nota acima do permitido"<<endl;
             }
         }
         while(alunoX.nota_alunos2>10);
-        }
+    }
     else if(nAvaliacao==3)
     {
-        gotoxy(17,13);
-        cout << "Digite a nota:" ;
+        criaMenu(1,55,15,21,BLACK,WHITE);
+        criaMenu(2,55, 15,22, COR_DETALHE, COR_LETRA);
+        gotoxy(17,23);
+        cout << "DIGITE A NOTA:" ;
         do
         {
-            gotoxy(30,13);
+            gotoxy(32,23);
             cin >>alunoX.nota_alunos3;
-            if(alunoX.nota_alunos3 < 10){
-                gotoxy(30,14);
-            cout << "Nota acima do permitido"<<endl;
+            if(alunoX.nota_alunos3 > 10)
+            {
+                gotoxy(30,26);
+                cout << "Nota acima do permitido"<<endl;
             }
         }
         while(alunoX.nota_alunos3 > 10);
@@ -402,16 +421,20 @@ int exibir_para_chamada()
     int id_selecionado;
     struct materias m;
     fstream leitura(lista_materias, ios::in);
+    logoPrincipal();
 
     if(leitura.fail())
     {
         cout << "ALGUM PROBLEMA NO ARQUIVO...REABRA O PROGRAMA"<<endl;
     }
+    gotoxy(1,5);
+    cout << "=================================================";
+    gotoxy(1,6);
+    cout << "================LISTA DE MATERIAS================";
+    gotoxy(1,7);
+    cout << "=================================================";
 
-    cout << "=================================================" << endl;
-    cout << "================Lista De Materias================" << endl;
-    cout << "=================================================" << endl;
-
+    gotoxy(1,8);
     while(leitura &&! leitura.eof())
     {
         if(m.id_materia > 0 && m.id_materia <100 && m.nome_materia != "")

@@ -5,6 +5,8 @@ void bordaLogin();
 void logoPrincipal();
 void criaMenu(int altura,int largura,int cordX,int cordY,int corFundo,int corLetra);
 void boneco();
+void SigaaLite();
+void carregando();
 void linhaHorizontal(int linha){
       int i;
        for (i=1;i<80;i++){
@@ -69,9 +71,9 @@ void logoEntrada(){
         gotoxy(i-1,2);
         clreol();
         gotoxy(i,2);
-        cout<<"CHOPPERIA";
+        cout<<"";
         gotoxy(j,2);
-        cout<<"PESTISCARIA";
+        cout<<"";
         Sleep(35);
 
     }
@@ -179,6 +181,138 @@ void boneco()
             // }
 
 
+}
+void SigaaLite()
+{
+
+    system("color 8f");
+    //textcolor(RED);
+    int contador;
+   //S
+   gotoxy(8,4);
+   printf("\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf");
+   gotoxy(8,10);
+   printf("\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf");
+   gotoxy(8,16);
+   printf("\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf");
+   gotoxy(21,4);
+   printf("\xdb");
+   gotoxy(8,15);
+   printf("\xdb");
+   for(contador=4;contador<10; contador++)
+   {
+       gotoxy(8,contador);
+       printf("\xdb");
+   }
+  for(contador=10;contador<16;contador++)
+   {
+       gotoxy(22,contador);
+       printf("\xdb");
+   }
+
+   //*************************************************
+
+   //I
+
+   /*gotoxy(45,9);
+   printf("\x3df\xdf\xdf\xdf\x3df\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf");
+   gotoxy(45,27);
+   printf("\x3df\xdf\xdf\xdf\x3df\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf");*/
+  //gotoxy(52,9);
+   //printf("\xdb");
+
+   for(contador=4; contador<16; contador++)
+   {
+       gotoxy(35,contador);
+       printf("\xdb");
+   }
+   //**********************************************************
+
+   //G
+     gotoxy(48,4);
+     printf("\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf");
+     gotoxy(48,16);
+     printf("\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf");
+     gotoxy(55,11);
+     printf("\xdf\xdf\xdf\xdf\xdf\xdf");
+   for(contador=4; contador<16;contador++)
+   {
+       gotoxy(48,contador);
+       printf("\xdb");
+       //A
+         gotoxy(70,contador);
+         printf("\xdb            \xdb");
+         gotoxy(94,contador);
+         printf("\xdb           \xdb");
+
+   }
+    for(contador=11;contador<16;contador++)
+   {
+        gotoxy(60,contador);
+       printf("\xdb");
+   }
+    //A
+   gotoxy(71,4);
+   printf("\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf");
+   gotoxy(95,4);
+   printf("\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf");
+   gotoxy(71,9);
+   printf("\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf");
+   gotoxy(95,9);
+   printf("\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf");
+
+   //L
+   gotoxy(65,26);
+   printf("\xdf\xdf\xdf\xdf\xdf\xdf");
+
+   for(contador=20; contador<26; contador++)
+   {
+       gotoxy(65,contador);
+       printf("\xdb");
+       // I
+       gotoxy(75,contador);
+       printf("\xdb");
+       // T
+       gotoxy(85,contador);
+       printf("\xdb");
+       //E
+       gotoxy(94,contador);
+       printf("\xdb");
+
+
+   }
+   gotoxy(86,20);
+   printf("\xdf\xdf\xdf\xdf");
+   gotoxy(81,20);
+   printf("\xdf\xdf\xdf\xdf");
+   gotoxy(75,26);
+   printf("\xdf");
+   gotoxy(85,26);
+   printf("\xdf");
+   gotoxy(94,26);
+   printf("\xdf");
+   gotoxy(95,20);
+   printf("\xdf\xdf\xdf\xdf\xdf\xdf");
+   gotoxy(95,23);
+   printf("\xdf\xdf\xdf\xdf\xdf");
+   gotoxy(95,26);
+   printf("\xdf\xdf\xdf\xdf\xdf\xdf");
+
+    //LINHA
+    for(contador=10;contador<60;contador++)
+    {
+        gotoxy(contador,21);
+    printf("\xcd");
+    gotoxy(contador,23);
+    printf("\xcd");
+    gotoxy(contador,25);
+    printf("\xcd");
+    }
+    //gotoxy(10,22);
+    //printf("\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd");
+    //printf("\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf\xdf");
+   gotoxy(20,30);
+   system("pause");
 }
 
 

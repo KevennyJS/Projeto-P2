@@ -60,7 +60,10 @@ void home_aluno(int usuario_ID){
                 visualizarNotas(usuario_ID);
                 break;
             case 0:
+
                 limpar_tela;
+                logoPrincipal();
+                gotoxy(3,8);
                 msg(1,1);
                 break;
         }
@@ -177,17 +180,18 @@ void visualizarNotas(int usuario_ID){
 
     if(archive.fail())
     cout <<"Algum problema com o arquivos reinicie o programa e tente novamente"<<endl;
-
+    criaMenu(1,10,1,10, COR_DETALHE, COR_LETRA);
     archive.read((char*)(&materiaAtual),sizeof(aluno));
     while(archive && !archive.eof()){
         if(materiaAtual.id_usuario == usuario_ID ){
+                gotoxy(1,10);
             cout << setw(10) << "Nota 1"<< setw(10) << "Nota 2"<< setw(10) << "Nota 3"<<"\n"
                  << setw(10) <<setprecision(2)<< materiaAtual.nota_alunos1
                  << setw(10) << materiaAtual.nota_alunos2
                  << setw(10) << materiaAtual.nota_alunos3 <<endl;
 
-                 cout<<"\nMÉDIA: "<<materiaAtual.media<<endl;
-                 cout<<"\nFaltas: "<<materiaAtual.faltas<<endl;
+                 cout<<"\nMÉDIA : "<<materiaAtual.media;
+                 cout<<"\t\tFALTAS: "<<materiaAtual.faltas<<endl;
 
         }
         archive.read((char*)(&materiaAtual),sizeof(aluno));
